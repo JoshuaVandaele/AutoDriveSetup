@@ -4,6 +4,7 @@ set label="Games" | REM Label of the volume you want to use to run this script.
 
 ::Author: https://github.com/FolfyBlue/
 ::Please note, this script will always try to run on the S: letter.
+::Though, if there is already something in S:, the script will just change it's letter.
 
 setlocal enableextensions enabledelayedexpansion
 

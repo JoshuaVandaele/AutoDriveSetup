@@ -1,8 +1,9 @@
 @ECHO off
 ::SET THE VARIABLES HERE:
-set label="Games" | REM Name of the volume you want to use to run this script.
+set label="Games" | REM Label of the volume you want to use to run this script.
 
 ::Author: https://github.com/FolfyBlue/
+::Please note, this script will always try to run on the S: letter.
 
 setlocal enableextensions enabledelayedexpansion
 

@@ -119,15 +119,6 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\Current\Version\ImmersiveShell /v UseAct
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v UseOLEDTaskbarTransparency /t REG_DWORD /d 1 /f >nul 2>nul && ECHO.Enabled taskbar transparency.
 reg add HKCU\USER\Control Panel\Desktop /v AutoEndTasks /t REG_DWORD /d 0 /f >nul 2>NUL &&                                            ECHO.Windows won't ask for you to close apps on shutdown.
 
-%np%\SetACL.exe -on "HKCR\Directory\Background\shell\cmd" -ot reg -actn setowner -ownr "n:Administrators" >nul 2>nul
-%np%\SetACL.exe -on "HKCR\Directory\Background\shell\cmd" -ot reg -actn ace -ace "n:Administrators;p:full" >nul 2>nul
-ECHO Y|reg delete HKCR\Directory\Background\shell\cmd\ /v HideBasedOnVelocityId >nul 2>nul
-reg add HKCR\Directory\Background\shell\cmd /v ShowBasedOnVelocityId /t REG_DWORD /d 6527944 /f >nul 2>nul
-%np%\SetACL.exe -on "HKCR\Directory\Background\shell\Powershell" -ot reg -actn setowner -ownr "n:Administrators" >nul 2>nul
-%np%\SetACL.exe -on "HKCR\Directory\Background\shell\Powershell" -ot reg -actn ace -ace "n:Administrators;p:full" >nul 2>nul
-ECHO Y|reg delete HKCR\Directory\Background\shell\Powershell\ /v ShowBasedOnVelocityId >nul 2>nul
-reg add HKCR\Directory\Background\shell\Powershell /v HideBasedOnVelocityId /t REG_DWORD /d 6527944 /f >nul 2>nul &&                  ECHO.Added CMD to extended context menu. || REM and it was way too hard what the fuck microsoft why do I need to download a program to modify my registry's perms
-
 if exist "S:\SFiles\Programs\Program Files\Sublime Text 3\" (
   reg add "HKCR\*\shell\Open with Sublime Text" /v Icon   /t REG_SZ /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe,0" /f >nul 2>nul
   reg add "HKCR\*\shell\Open with Sublime Text" /ve /d "Open with &Sublime Text" /f >nul 2>nul

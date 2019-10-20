@@ -36,7 +36,6 @@ del %tmp%/ChangeDriveLetter.diskpart >nul 2>nul
 
 set /a symCount = 0
 set /a fontCount = 0
-for /f "usebackq skip=1 tokens=*" %%i in (`wmic useraccount where name^='%username%' get SID ^| findstr /r /v "^$"`) do set SID=%%i
 
 :: Old folders
 set old[0]="%appdata%"

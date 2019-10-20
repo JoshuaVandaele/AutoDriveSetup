@@ -4,9 +4,10 @@ setlocal enableextensions enabledelayedexpansion
 title SETUP OF S:\
 ECHO Please wait...
 
+:: Asks for admin perm if not already given
 if not "%1"=="am_admin" (powershell start -verb runas '%0' am_admin & exit /b)
 
-:: LABEL OF THE CURRENT VOLUME (IMPORTANT)
+:: LABEL OF THE VOLUME YOU WANT TO USE
 set label="Games"
 
 vol S: | findstr %label% && goto Ssetup 
@@ -17,16 +18,23 @@ for %%p in (A B C D E F G H I J K L M N O P Q R T U V W X Y Z) do (
 )
 
 if "%replace%"=="1" do (
-  ECHO.select volume S > %tmp%/chngltr.diskpart
-  ECHO.assign >> %tmp%/chngltr.diskpart
-  diskpart /s %tmp%/chngltr.diskpart
+  ECHO.select volume S > %tmp%/ChangeDriveLetter.diskpart
+  ECHO.assign >> %tmp%/ChangeDriveLetter.diskpart
+  diskpart /s %tmp%/ChangeDriveLetter.diskpart
 )
 
-ECHO.select volume %curDrive% > %tmp%/chngltr.diskpart
-ECHO.assign LETTER=S >> %tmp%/chngltr.diskpart
-diskpart /s %tmp%/chngltr.diskpart
+ECHO.select volume %curDrive% > %tmp%/ChangeDriveLetter.diskpart
+ECHO.assign LETTER=S >> %tmp%/ChangeDriveLetter.diskpart
+diskpart /s %tmp%/ChangeDriveLetter.diskpart
 
-del %tmp%/chngltr.diskpart >nul 2>nul
+del %tmp%/ChangeDriveLetter.diskpart >nul 2>nul
+
+if "%replace%"=="1" do (
+  mkdir "S:\SFiles\"
+  cp %0 "S:\SFiles\UpdateOrSetupDrive.bat"
+  start /D "S:\SFiles\UpdateOrSetupDrive.bat"
+  exit
+)
 
 :Ssetup
 
@@ -37,13 +45,13 @@ for /f "usebackq skip=1 tokens=*" %%i in (`wmic useraccount where name^='%userna
 :: Old folders
 set old[0]="%appdata%"
 set old[1]="%localappdata%"
-set old[2]=%ProgramFiles(x86)%
-set old[3]=%ProgramFiles%
-set old[4]=%CommonProgramFiles(x86)%
-set old[5]=%CommonProgramFiles%
+set old[2]="%ProgramFiles(x86)%"
+set old[3]="%ProgramFiles%"
+set old[4]="%CommonProgramFiles(x86)%"
+set old[5]="%CommonProgramFiles%"
 set old[6]="%userprofile%\Documents"
 set old[7]="%appdata%\..\LocalLow"
-set old[8]=%ALLUSERSPROFILE%
+set old[8]="%ALLUSERSPROFILE%"
 set old[9]="%USERPROFILE%"
 
 
@@ -103,7 +111,7 @@ echo y|taskkill /f /im OneDrive.exe >nul 2>nul
 echo y|%SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall >nul 2>nul
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows /v DisableFileSyncNGSC /t REG_DWORD /d 1 /f >nul 2>nul &&                            ECHO.Disabled Microsoft's cloud service.
 
-powershell -command "& {get-appxpackage *skype* | remove-appxpackage}"; "& {get-appxpackage *getstarted* | remove-appxpackage}"; "& {get-appxpackage *officehub* | remove-appxpackage}"; "& {get-appxpackage *feedback* | remove-appxpackage}"; "& {get-appxpackage *messaging* | remove-appxpackage} "; "& {get-appxpackage *bing* | remove-appxpackage}";  "& {get-appxpackage *onenote* | remove-appxpackage}"
+powershell -command "& {get-appxpackage *skype* | remove-appxpackage}"; "& {get-appxpackage *people* | remove-appxpackage}"; "& {get-appxpackage *getstarted* | remove-appxpackage}"; "& {get-appxpackage *officehub* | remove-appxpackage}"; "& {get-appxpackage *feedback* | remove-appxpackage}"; "& {get-appxpackage *messaging* | remove-appxpackage} "; "& {get-appxpackage *bing* | remove-appxpackage}";  "& {get-appxpackage *onenote* | remove-appxpackage}"
                                                                                                                                       ECHO.Uninstalled useless default Windows apps
 
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer /v AllowOnlineTips /t REG_DWORD /d 0 /f >nul 2>nul &&        ECHO.We turned off Windows tips.
@@ -148,6 +156,12 @@ for /R %%f in (*.ttf) DO (
   set file="%%~nf (TrueType)"
   ECHO N|reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v !file:-= ! /t REG_SZ /d "%%~nf.ttf" 2>NUL | findstr "succ" && ECHO.Added the font %%~nf && set /a fontCount += 1
   mklink "%systemroot%\fonts\%%~nf.ttf" "%%f" >nul 2>nul
+)
+
+::Install drivers & start them
+if exist "C:\Program Files\Oracle\VirtualBox\drivers" (
+  pnputil -i -a "C:\Program Files\Oracle\VirtualBox\drivers\vboxdrv\VBoxDrv.inf"
+  net start vboxdrv
 )
 
 ::THE END

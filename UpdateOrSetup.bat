@@ -1,4 +1,7 @@
 @ECHO off
+::SET THE VARIABLES HERE:
+set label="Games" | REM Name of the volume you want to use to run this script.
+
 ::Author: https://github.com/FolfyBlue/
 
 setlocal enableextensions enabledelayedexpansion
@@ -8,9 +11,6 @@ ECHO Please wait...
 
 :: Asks for admin perm if not already given
 if not "%1"=="am_admin" (powershell start -verb runas '%0' am_admin & exit /b)
-
-:: LABEL OF THE VOLUME YOU WANT TO USE
-set label="Games"
 
 vol S: | findstr %label% && goto Ssetup 
 vol S: | findstr "Volume in drive" && set replace=1

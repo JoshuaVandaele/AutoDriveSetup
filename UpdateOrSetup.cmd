@@ -14,6 +14,7 @@ ECHO Please wait...
 :: Asks for admin perm if not already given
 if not "%1"=="am_admin" (powershell start -verb runas '%0' am_admin & exit /b)
 
+:: Sets up the drive if not already done
 vol S: | findstr %label% && goto Ssetup 
 vol S: | findstr "Volume in drive" && set replace=1
 

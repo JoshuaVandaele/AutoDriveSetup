@@ -117,7 +117,6 @@ reg add HKLM\SOFTWARE\Microsoft\DataCollection /v AllowTelemetry /t REG_DWORD /d
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v AppsUseLightTheme /t REG_DWORD /d 0 /f >nul 2>nul &&     ECHO.Apps will now use the dark theme.
 reg add HKLM\SOFTWARE\Microsoft\Windows\Current\Version\ImmersiveShell /v UseActionCenterExperience /t REG_DWORD /d 0 /f >nul 2>nul &&ECHO.Disabled Action Center.
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v UseOLEDTaskbarTransparency /t REG_DWORD /d 1 /f >nul 2>nul && ECHO.Enabled taskbar transparency.
-::reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\TestHooks /v Threshold /t REG_DWORD /d 1 /f >nul 2>nul&&ECHO.Enabled experimental login screen. :: DANGEROUS
 reg add HKCU\USER\Control Panel\Desktop /v AutoEndTasks /t REG_DWORD /d 0 /f >nul 2>NUL &&                                            ECHO.Windows won't ask for you to close apps on shutdown.
 
 %np%\SetACL.exe -on "HKCR\Directory\Background\shell\cmd" -ot reg -actn setowner -ownr "n:Administrators" >nul 2>nul
@@ -136,14 +135,9 @@ if exist "S:\SFiles\Programs\Program Files\Sublime Text 3\" (
 )
 if exist "S:\SFiles\Programs\Program Files\AutoHotkey\" (
   assoc .ahk=AutoHotkey >nul 2>nul
-  ftype AutoHotkey="S:\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul &&                                       ECHO.Associated Auto HotKey files.
+  ftype AutoHotkey="S:\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul &&                                     ECHO.Associated Auto HotKey files.
 )
 
-reg query HKCU\SOFTWARE\Valve\Steam >nul 2>nul
-if %ERRORLEVEL% EQU 1 ( 
-  reg add HKCU\SOFTWARE\Valve\Steam /v SkinV4 /t REG_SZ /d "Metro" /f >nul 2>nul
-  reg add HKCU\SOFTWARE\Valve\Steam /v AutoLoginUser /t REG_SZ /d "thejoshua974" /f >nul 2>nul &&                                      ECHO.Configured Steam.
-)
 :: Add shortcuts to desktop
 copy "S:\SFiles\Others\Desktop" "%userprofile%\Desktop" >nul 2>nul &&                                                                  ECHO.Added shortcuts to your desktop.
 

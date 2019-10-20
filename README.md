@@ -1,2 +1,2 @@
-# PersonalDriveSetup
-This is for my own personal use but, feel free to use it, it should automatically set itself up on a new, clean drive.
+# AutoDriveSetup
+This script is used to automatically set up an external drive as an extension, very useful for myself.

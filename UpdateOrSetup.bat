@@ -73,7 +73,7 @@ FOR %%i IN (0,1,2,3,4,5,6,7,8,9) DO (
     ECHO ^>!new[%%i]! ^|^| %%p 
   )
 )
-echo.Put your folders here and then run the setup script>"S:\SFiles\Programs\HowToUse.txt"
+echo.Put your corresponding folders into these sub-folders and then run the setup script (example: put C:\Program Files\Steam\ to S:\SFiles\Program Files\Steam\>"S:\SFiles\Programs\HowToUse.txt"
 
 :: Reading all locations on the disk so it's not slow
 start "Reading file locations..." /D S: /MIN /REALTIME cmd /c "echo Giving the drive a spin, ignore this. && tree /F S:" 

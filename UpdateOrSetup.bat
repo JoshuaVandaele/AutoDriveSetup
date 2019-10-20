@@ -139,6 +139,8 @@ if exist "S:\SFiles\Programs\Program Files\AutoHotkey\" (
 )
 
 :: Add shortcuts to desktop
+mkdir "S:\SFiles\Others\Desktop" >nul 2>nul
+echo.Put all your shortcuts here and it will copy them automatically to your Desktop when you run the setup script.>"S:\SFiles\Others\Desktop.txt"
 copy "S:\SFiles\Others\Desktop" "%userprofile%\Desktop" >nul 2>nul &&                                                                  ECHO.Added shortcuts to your desktop.
 
 :: Add fonts via Symlinks

@@ -1,4 +1,6 @@
 @ECHO off
+::Author: https://github.com/FolfyBlue/
+
 setlocal enableextensions enabledelayedexpansion
 
 title SETUP OF S:\

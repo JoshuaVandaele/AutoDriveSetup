@@ -29,13 +29,6 @@ diskpart /s %tmp%/ChangeDriveLetter.diskpart
 
 del %tmp%/ChangeDriveLetter.diskpart >nul 2>nul
 
-if "%replace%"=="1" do (
-  mkdir "S:\SFiles\"
-  cp %0 "S:\SFiles\UpdateOrSetupDrive.bat"
-  start /D "S:\SFiles\UpdateOrSetupDrive.bat"
-  exit
-)
-
 :Ssetup
 
 set /a symCount = 0
@@ -71,6 +64,7 @@ cd /d S:
 
 :: Start creating symlinks
 FOR %%i IN (0,1,2,3,4,5,6,7,8,9) DO (
+  mkdir !new[%%i]! >nul 2>nul
   cd !new[%%i]!
   FOR /D %%p IN (*) DO (
     set /a symCount += 1
@@ -79,6 +73,7 @@ FOR %%i IN (0,1,2,3,4,5,6,7,8,9) DO (
     ECHO ^>!new[%%i]! ^|^| %%p 
   )
 )
+echo.Put your folders here and then run the setup script>"S:\SFiles\Programs\HowToUse.txt"
 
 :: Reading all locations on the disk so it's not slow
 start "Reading file locations..." /D S: /MIN /REALTIME cmd /c "echo Giving the drive a spin, ignore this. && tree /F S:" 
@@ -90,13 +85,14 @@ title Adding a few things....
 ECHO.
 
 :: Adding to the PATH my own directory
+mkdir "S:\SFiles\PATH" >nul 2>nul
 set np="S:\SFiles\PATH"
 set Xtra="%np%\Python;%np%\Python\Scripts;%np%\Lua"
 ECHO %path%|find /i "%np:"=%">nul  || setx /M PATH %PATH%;%np%;%Xtra% >nul 2>nul
 
 :: Adding to the startup my own directory
-del "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.bat"  >nul 2>nul
-copy "S:\SFiles\startup.bat" "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup" >nul 2>nul &&                                  ECHO.Added startup programs
+mkdir S:\Sfiles\Startup\ >nul 2>nul
+echo.for %%v in ('S:\Sfiles\Startup\*') do start '' '%%~v' > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.bat" >nul 2>nul &&  ECHO.Added startup programs
 
 :: Edit Windows update settings
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AUOptions /t REG_DWORD /d 4 /f >nul 2>nul &&                     ECHO.Updates will automatically install.
@@ -133,12 +129,15 @@ reg add HKCR\Directory\Background\shell\cmd /v ShowBasedOnVelocityId /t REG_DWOR
 ECHO Y|reg delete HKCR\Directory\Background\shell\Powershell\ /v ShowBasedOnVelocityId >nul 2>nul
 reg add HKCR\Directory\Background\shell\Powershell /v HideBasedOnVelocityId /t REG_DWORD /d 6527944 /f >nul 2>nul &&                  ECHO.Added CMD to extended context menu. || REM and it was way too hard what the fuck microsoft why do I need to download a program to modify my registry's perms
 
-reg add "HKCR\*\shell\Open with Sublime Text" /v Icon   /t REG_SZ /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe,0" /f >nul 2>nul
-reg add "HKCR\*\shell\Open with Sublime Text" /ve /d "Open with &Sublime Text" /f >nul 2>nul
-reg add "HKCR\*\shell\Open with Sublime Text\command" /ve /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe \"%%1\"" /f >nul 2>nul && ECHO.Added "Open with Sublime Text" to the context menu.
-
-assoc .ahk=AutoHotkey >nul 2>nul
-ftype AutoHotkey="S:\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul &&                                       ECHO.Associated Auto HotKey files.
+if exist "S:\SFiles\Programs\Program Files\Sublime Text 3\" (
+  reg add "HKCR\*\shell\Open with Sublime Text" /v Icon   /t REG_SZ /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe,0" /f >nul 2>nul
+  reg add "HKCR\*\shell\Open with Sublime Text" /ve /d "Open with &Sublime Text" /f >nul 2>nul
+  reg add "HKCR\*\shell\Open with Sublime Text\command" /ve /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe \"%%1\"" /f >nul 2>nul && ECHO.Added "Open with Sublime Text" to the context menu.
+)
+if exist "S:\SFiles\Programs\Program Files\AutoHotkey\" (
+  assoc .ahk=AutoHotkey >nul 2>nul
+  ftype AutoHotkey="S:\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul &&                                       ECHO.Associated Auto HotKey files.
+)
 
 reg query HKCU\SOFTWARE\Valve\Steam >nul 2>nul
 if %ERRORLEVEL% EQU 1 ( 
@@ -150,7 +149,8 @@ copy "S:\SFiles\Others\Desktop" "%userprofile%\Desktop" >nul 2>nul &&           
 
 :: Add fonts via Symlinks
 ECHO.Checking if you have all avaible fonts.
-
+mkdir "S:\SFiles\Others\fonts" >nul 2>nul
+echo.Put all your ttf files here to make the computer install them using symlinks>"S:\SFiles\Others\fonts\HowToUse.txt" 
 cd "S:\SFiles\Others\fonts"
 for /R %%f in (*.ttf) DO (
   set file="%%~nf (TrueType)"
@@ -170,4 +170,5 @@ ECHO.
 ECHO.Done, !symCount! symbolic links created and !fontCount! fonts added. 
 if !fontCount gtr 0 echo Some fonts may require a restart to install properly.
 ECHO.You may require to restart your computer for some features to work.
+move "%0" "S:\SFiles\UpdateOrSetup.bat" >nul 2>nul
 pause

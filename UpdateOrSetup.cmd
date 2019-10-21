@@ -95,7 +95,8 @@ set Xtra="%np%\Python;%np%\Python\Scripts;%np%\Lua"
 ECHO %path%|find /i "%np:"=%">nul  || setx /M PATH %PATH%;%np%;%Xtra% >nul 2>nul
 
 :: Adding to the startup my own directory
-mkdir S:\Sfiles\Startup\ >nul 2>nul
+mkdir "S:\Sfiles\Startup\" >nul 2>nul
+mkdir "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\" >nul 2>nul
 echo.for %%v in ('S:\Sfiles\Startup\*') do start '' '%%~v' > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd" >nul 2>nul &&  ECHO.Added startup programs
 
 :: Edit Windows update settings
@@ -151,8 +152,9 @@ for /R %%f in (*.ttf) DO (
 
 ::Install drivers & start them
 if exist "C:\Program Files\Oracle\VirtualBox\drivers" (
-  pnputil -i -a "C:\Program Files\Oracle\VirtualBox\drivers\vboxdrv\VBoxDrv.inf"
-  net start vboxdrv
+  pnputil -i -a "C:\Program Files\Oracle\VirtualBox\drivers\vboxdrv\VBoxDrv.inf" >nul 2>nul
+  net start vboxdrv >nul 2>nul
+  ECHO.Installed VirtualBox's Driver.
 )
 
 ::THE END

@@ -1,6 +1,6 @@
 @ECHO off
 ::SET THE VARIABLES HERE:
-set label="Games" && REM Label of the volume you want to use to run this script.
+set label="Games" || REM Label of the volume you want to use to run this script.
 
 ::Author: https://github.com/FolfyBlue/
 ::Please note, this script will always try to run on the S: letter.
@@ -111,7 +111,7 @@ echo y|taskkill /f /im OneDrive.exe >nul 2>nul
 echo y|%SystemRoot%\SysWOW64\OneDriveSetup.exe /uninstall >nul 2>nul
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows /v DisableFileSyncNGSC /t REG_DWORD /d 1 /f >nul 2>nul &&                            ECHO.Disabled Microsoft's cloud service.
 
-powershell -command "& {get-appxpackage *skype* | remove-appxpackage}"; "& {get-appxpackage *people* | remove-appxpackage}"; "& {get-appxpackage *getstarted* | remove-appxpackage}"; "& {get-appxpackage *officehub* | remove-appxpackage}"; "& {get-appxpackage *feedback* | remove-appxpackage}"; "& {get-appxpackage *messaging* | remove-appxpackage} "; "& {get-appxpackage *bing* | remove-appxpackage}";  "& {get-appxpackage *onenote* | remove-appxpackage}"
+powershell -command "& {get-appxpackage *skype* | remove-appxpackage}"; "& {get-appxpackage *getstarted* | remove-appxpackage}"; "& {get-appxpackage *officehub* | remove-appxpackage}"; "& {get-appxpackage *feedback* | remove-appxpackage}"; "& {get-appxpackage *messaging* | remove-appxpackage} "; "& {get-appxpackage *bing* | remove-appxpackage}";  "& {get-appxpackage *onenote* | remove-appxpackage}"
                                                                                                                                       ECHO.Uninstalled useless default Windows apps
 
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer /v AllowOnlineTips /t REG_DWORD /d 0 /f >nul 2>nul &&        ECHO.We turned off Windows tips.

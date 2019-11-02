@@ -105,7 +105,7 @@ ECHO %path%|find /i "%np:"=%">nul  || setx /M PATH %PATH%;%np%;%Xtra% >nul 2>nul
 :: Adding to the startup my own directory
 mkdir "S:\Sfiles\Startup\" >nul 2>nul
 mkdir "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\" >nul 2>nul
-echo.for %%v in ('S:\Sfiles\Startup\*') do start '' '%%~v' > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd" >nul 2>nul && ECHO.Added startup programs
+echo.for %%v in ("S:\Sfiles\Startup\*") do start "" "%%~v" > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd" >nul 2>nul && ECHO.Added startup programs
 
 if exist "S:\SFiles\Programs\Program Files\Sublime Text 3\" (
   reg add "HKCR\*\shell\Open with Sublime Text" /v Icon   /t REG_SZ /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe,0" /f >nul 2>nul

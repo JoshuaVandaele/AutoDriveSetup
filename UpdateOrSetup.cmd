@@ -117,17 +117,6 @@ if exist "S:\SFiles\Programs\Program Files\AutoHotkey\" (
   ftype AutoHotkey="S:\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul && ECHO.Associated Auto HotKey files.
 )
 
-:: Add fonts via Symlinks
-ECHO.Checking if you have all avaible fonts. (This may take a while depending on how much there are.)
-mkdir "S:\SFiles\Others\fonts" >nul 2>nul
-
-cd "S:\SFiles\Others\fonts"
-for /R %%f in (*.ttf) DO (
-  set file="%%~nf (TrueType)"
-  ECHO N|reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v !file:-= ! /t REG_SZ /d "%%~nf.ttf" 2>NUL | findstr "succ" && ECHO.Added the font %%~nf && set /a fontCount += 1
-  mklink "%systemroot%\fonts\%%~nf.ttf" "%%f" >nul 2>nul
-)
-
 :: Edit Windows update settings
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AUOptions /t REG_DWORD /d 4 /f >nul 2>nul && ECHO.Updates will automatically install.
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v NoAutoRebootWithLoggedOnUsers /t REG_DWORD /d 1 /f >nul 2>nul && ECHO.Windows won't restart while you're logged in.
@@ -156,10 +145,22 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v App
 reg add HKLM\SOFTWARE\Microsoft\Windows\Current\Version\ImmersiveShell /v UseActionCenterExperience /t REG_DWORD /d 0 /f >nul 2>nul && ECHO.Disabled Action Center.
 reg add HKCU\USER\Control Panel\Desktop /v AutoEndTasks /t REG_DWORD /d 0 /f >nul 2>NUL && ECHO.Windows won't ask for you to close apps on shutdown.
 
+::Install drivers & start them
 if exist "C:\Program Files\Oracle\VirtualBox\drivers" (
   pnputil -i -a "C:\Program Files\Oracle\VirtualBox\drivers\vboxdrv\VBoxDrv.inf" >nul 2>nul
   net start vboxdrv >nul 2>nul
   ECHO.Installed VirtualBox's Driver.
+)
+
+:: Add fonts via Symlinks
+ECHO.Checking if you have all avaible fonts. (This may take a while depending on how much there are.)
+mkdir "S:\SFiles\Others\fonts" >nul 2>nul
+
+cd "S:\SFiles\Others\fonts"
+for /R %%f in (*.ttf) DO (
+  set file="%%~nf (TrueType)"
+  ECHO N|reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v !file:-= ! /t REG_SZ /d "%%~nf.ttf" 2>NUL | findstr "succ" && ECHO.Added the font %%~nf && set /a fontCount += 1
+  mklink "%systemroot%\fonts\%%~nf.ttf" "%%f" >nul 2>nul
 )
 
 ::THE END

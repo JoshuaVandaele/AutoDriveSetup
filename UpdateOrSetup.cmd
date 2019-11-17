@@ -134,6 +134,10 @@ reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v NoAutoReboo
 
 :: Customize Taskbar
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows /v AllowCortana /t REG_DWORD /d 0 /f >nul 2>nul && ECHO.Disabled Cortana.
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v UseOLEDTaskbarTransparency /t REG_DWORD /d 1 /f >nul 2>nul && ECHO.Enabled taskbar transparency.
+reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Search /v SearchboxTaskbarMode /t REG_DWORD /d 1 /f >nul 2>NUL && ECHO.Enabled the search icon.
+reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v ShowCortanaButton /t REG_DWORD /d 0 /f >nul 2>NUL && ECHO.Hide Cortana icon.
+reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v ShowTaskViewButton /t REG_DWORD /d 0 /f >nul 2>NUL && ECHO.Hide Taskbar icon.
 
 :: Customize OS features in general
 echo y|del %localappdata%\Microsoft\WindowsApps\py* >nul 2>nul
@@ -150,10 +154,8 @@ reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v Hide
 reg add HKLM\SOFTWARE\Microsoft\DataCollection /v AllowTelemetry /t REG_DWORD /d 0 /f >nul 2>nul && ECHO.Disabled Microsoft's keylogger.
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v AppsUseLightTheme /t REG_DWORD /d 0 /f >nul 2>nul && ECHO.Apps will now use the dark theme.
 reg add HKLM\SOFTWARE\Microsoft\Windows\Current\Version\ImmersiveShell /v UseActionCenterExperience /t REG_DWORD /d 0 /f >nul 2>nul && ECHO.Disabled Action Center.
-reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v UseOLEDTaskbarTransparency /t REG_DWORD /d 1 /f >nul 2>nul && ECHO.Enabled taskbar transparency.
 reg add HKCU\USER\Control Panel\Desktop /v AutoEndTasks /t REG_DWORD /d 0 /f >nul 2>NUL && ECHO.Windows won't ask for you to close apps on shutdown.
 
-::Install drivers & start them
 if exist "C:\Program Files\Oracle\VirtualBox\drivers" (
   pnputil -i -a "C:\Program Files\Oracle\VirtualBox\drivers\vboxdrv\VBoxDrv.inf" >nul 2>nul
   net start vboxdrv >nul 2>nul

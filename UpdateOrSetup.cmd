@@ -144,6 +144,7 @@ reg add HKLM\SOFTWARE\Microsoft\DataCollection /v AllowTelemetry /t REG_DWORD /d
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v AppsUseLightTheme /t REG_DWORD /d 0 /f >nul 2>nul && ECHO.Apps will now use the dark theme.
 reg add HKLM\SOFTWARE\Microsoft\Windows\Current\Version\ImmersiveShell /v UseActionCenterExperience /t REG_DWORD /d 0 /f >nul 2>nul && ECHO.Disabled Action Center.
 reg add HKCU\USER\Control Panel\Desktop /v AutoEndTasks /t REG_DWORD /d 0 /f >nul 2>NUL && ECHO.Windows won't ask for you to close apps on shutdown.
+reg add HKCU\Printers\ConvertUserDevModesCount /v OneNote /t REG_DWORD /d 0 /f >nul 2>NUL && ECHO.Removed OneNote from printers.
 
 ::Install drivers & start them
 if exist "S:\SFiles\Programs\Program Files\Oracle\VirtualBox\drivers" (

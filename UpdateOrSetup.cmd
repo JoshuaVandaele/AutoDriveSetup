@@ -1,51 +1,59 @@
-@ECHO off
+@ECHO OFF
 ::SET THE VARIABLES HERE:
-set label="Games" || REM Label of the volume you want to use to run this script.
+set letter=S:||REM Letter you want the drive to be.
 
-::Author: https://github.com/FolfyBlue/
-::Please note, this script will always try to run on the S: letter.
-::Though, if there is already something in S:, the script will just change it's letter.
+::Author: http%letter%//github.com/FolfyBlue/
+::If there is already something in %letter%, the script will just change it's letter.
 ::It is recommended to use this only your own session.
 
 setlocal enableextensions enabledelayedexpansion
+set curDrive=%CD:~0,2%
 
-title SETUP OF S:\
+title SETUP OF %letter%
 ECHO Please wait...
 
 :: Asks for admin perm if not already given
-if not "%1"=="am_admin" (powershell start -verb runas '%0' am_admin && exit)
+if not "%1"=="am_admin" (
+  echo %curDrive%>%TMP%/curDrive.tmp
+  powershell start -verb runas '%0' am_admin && exit
+)
+set /p curDrive=< %tmp%\curDrive.tmp
+del %tmp%\curDrive.tmp
 cls
 
 :: Sets up the drive if not already done
-vol S: | findstr %label% && goto Ssetup 
-vol S: | findstr "Volume in drive" && set replace=1
+
+if %letter%==%curDrive% (
+  goto Ssetup
+)
+
+vol %letter% | findstr "Volume in drive" && set replace=1
 
 if not "%1"=="am_admin" (
-  echo Please change this drive's letter to S.
+  echo Please change this drive's letter to %letter%.
   pause
   exit 
 )
 
-for %%p in (A B C D E F G H I J K L M N O P Q R T U V W X Y Z) do (
-  vol %%p: 2>nul | findstr %label% && set curDrive=%%p
-)
+CHOICE /C AB /T 30 /D B /M "Do you want to [A] change this drive's letter (%curDrive%) to %letter% or [B] cancel?"
+IF ERRORLEVEL 2 EXIT
 
-if "%replace%"=="1" do (
-  ECHO.select volume S > %tmp%/ChangeDriveLetter.diskpart
+if "%replace%"=="1" (
+  ECHO.select volume %letter% > %tmp%/ChangeDriveLetter.diskpart
   ECHO.assign >> %tmp%/ChangeDriveLetter.diskpart
   diskpart /s %tmp%/ChangeDriveLetter.diskpart
 )
 
 ECHO.select volume %curDrive% > %tmp%/ChangeDriveLetter.diskpart
-ECHO.assign LETTER=S >> %tmp%/ChangeDriveLetter.diskpart
+ECHO.assign LETTER=%letter% >> %tmp%/ChangeDriveLetter.diskpart
 diskpart /s %tmp%/ChangeDriveLetter.diskpart
 
 del %tmp%/ChangeDriveLetter.diskpart >nul 2>nul
-
+  
 :Ssetup
 
 :: Reading all locations on the disk so it's not slow
-start "Reading file locations..." /D S: /MIN /REALTIME cmd /c "echo Giving the drive a spin, ignore this. && tree /F S:" 
+start "Reading file locations..." /D %letter% /MIN /REALTIME cmd /c "echo Giving the drive a spin, ignore this. && tree /F %letter%" 
 
 set /a symCount = 0
 set /a fontCount = 0
@@ -64,17 +72,17 @@ set old[9]="%CommonProgramFiles%"
 
 
 :: New folder locations
-set new[0]="S:\SFiles\Programs\AppData\Roaming"
-set new[1]="S:\SFiles\Programs\AppData\Local"
-set new[2]="S:\SFiles\Programs\Documents"
-set new[3]="S:\SFiles\Programs\AppData\LocalLow"
-set new[4]="S:\SFiles\Programs\userdir"
-set new[5]="S:\SFiles\Programs\ProgramData"
-set new[6]="S:\SFiles\Programs\Program Files (x86)"
-set new[7]="S:\SFiles\Programs\Program Files"
-set new[8]="S:\SFiles\Programs\Common Files (x86)"
-set new[9]="S:\SFiles\Programs\Common Files"
-cd /d S:
+set new[0]="%letter%\SFiles\Programs\AppData\Roaming"
+set new[1]="%letter%\SFiles\Programs\AppData\Local"
+set new[2]="%letter%\SFiles\Programs\Documents"
+set new[3]="%letter%\SFiles\Programs\AppData\LocalLow"
+set new[4]="%letter%\SFiles\Programs\userdir"
+set new[5]="%letter%\SFiles\Programs\ProgramData"
+set new[6]="%letter%\SFiles\Programs\Program Files (x86)"
+set new[7]="%letter%\SFiles\Programs\Program Files"
+set new[8]="%letter%\SFiles\Programs\Common Files (x86)"
+set new[9]="%letter%\SFiles\Programs\Common Files"
+cd /d %letter%
 
 if not "%1"=="am_admin" (GOTO noAdmin)
 CHOICE /C AB /T 30 /D B /M "Do you want to [A] make this computer yours, or [B] only tweak it for a one-time use?"
@@ -97,24 +105,24 @@ title Adding a few things....
 ECHO.
 
 :: Adding to the PATH my own directory
-mkdir "S:\SFiles\PATH" >nul 2>nul
-set np="S:\SFiles\PATH"
+mkdir "%letter%\SFiles\PATH" >nul 2>nul
+set np="%letter%\SFiles\PATH"
 set Xtra="%np%\Python;%np%\Python\Scripts;%np%\Lua"
 ECHO %path%|find /i "%np:"=%">nul  || setx /M PATH %PATH%;%np%;%Xtra% >nul 2>nul
 
 :: Adding to the startup my own directory
-mkdir "S:\Sfiles\Startup\" >nul 2>nul
+mkdir "%letter%\Sfiles\Startup\" >nul 2>nul
 mkdir "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\" >nul 2>nul
-echo.for %%v in ("S:\Sfiles\Startup\*") do start "" "%%~v" > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd" >nul 2>nul && ECHO.Added startup programs
+echo.for %%v in ("%letter%\Sfiles\Startup\*") do start "" "%%~v" > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd" >nul 2>nul && ECHO.Added startup programs
 
-if exist "S:\SFiles\Programs\Program Files\Sublime Text 3\" (
-  reg add "HKCR\*\shell\Open with Sublime Text" /v Icon   /t REG_SZ /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe,0" /f >nul 2>nul
+if exist "%letter%\SFiles\Programs\Program Files\Sublime Text 3\" (
+  reg add "HKCR\*\shell\Open with Sublime Text" /v Icon   /t REG_SZ /d "%letter%\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe,0" /f >nul 2>nul
   reg add "HKCR\*\shell\Open with Sublime Text" /ve /d "Open with &Sublime Text" /f >nul 2>nul
-  reg add "HKCR\*\shell\Open with Sublime Text\command" /ve /d "S:\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe \"%%1\"" /f >nul 2>nul && ECHO.Added "Open with Sublime Text" to the context menu.
+  reg add "HKCR\*\shell\Open with Sublime Text\command" /ve /d "%letter%\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe \"%%1\"" /f >nul 2>nul && ECHO.Added "Open with Sublime Text" to the context menu.
 )
-if exist "S:\SFiles\Programs\Program Files\AutoHotkey\" (
+if exist "%letter%\SFiles\Programs\Program Files\AutoHotkey\" (
   assoc .ahk=AutoHotkey >nul 2>nul
-  ftype AutoHotkey="S:\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul && ECHO.Associated Auto HotKey files.
+  ftype AutoHotkey="%letter%\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul && ECHO.Associated Auto HotKey files.
 )
 
 :: Edit Windows update settings
@@ -147,17 +155,17 @@ reg add HKCU\USER\Control Panel\Desktop /v AutoEndTasks /t REG_DWORD /d 0 /f >nu
 reg add HKCU\Printers\ConvertUserDevModesCount /v OneNote /t REG_DWORD /d 0 /f >nul 2>NUL && ECHO.Removed OneNote from printers.
 
 ::Install drivers & start them
-if exist "S:\SFiles\Programs\Program Files\Oracle\VirtualBox\drivers" (
-  pnputil -i -a "S:\SFiles\Programs\Program Files\Oracle\VirtualBox\drivers\vboxdrv\VBoxDrv.inf" >nul 2>nul
+if exist "%letter%\SFiles\Programs\Program Files\Oracle\VirtualBox\drivers" (
+  pnputil -i -a "%letter%\SFiles\Programs\Program Files\Oracle\VirtualBox\drivers\vboxdrv\VBoxDrv.inf" >nul 2>nul
   net start vboxdrv >nul 2>nul
   ECHO.Installed VirtualBox's Driver.
 )
 
 :: Add fonts via Symlinks
 ECHO.Checking if you have all avaible fonts. (This may take a while depending on how much there are.)
-mkdir "S:\SFiles\Others\fonts" >nul 2>nul
+mkdir "%letter%\SFiles\Others\fonts" >nul 2>nul
 
-cd "S:\SFiles\Others\fonts"
+cd "%letter%\SFiles\Others\fonts"
 for /R %%f in (*.ttf) DO (
   set file="%%~nf (TrueType)"
   ECHO N|reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v !file:-= ! /t REG_SZ /d "%%~nf.ttf" 2>NUL | findstr "succ" && ECHO.Added the font %%~nf && set /a fontCount += 1
@@ -167,18 +175,18 @@ for /R %%f in (*.ttf) DO (
 ::THE END
 :END
 :: Add shortcuts to desktop.
-mkdir "S:\SFiles\Others\Desktop" >nul 2>nul
-copy "S:\SFiles\Others\Desktop" "%userprofile%\Desktop" >nul 2>nul && ECHO.Added shortcuts to your desktop.
+mkdir "%letter%\SFiles\Others\Desktop" >nul 2>nul
+copy "%letter%\SFiles\Others\Desktop" "%userprofile%\Desktop" >nul 2>nul && ECHO.Added shortcuts to your desktop.
 
 ::Adding help for users
-echo.Put your corresponding folders into these sub-folders and then run the setup script (example: put %appdata%\Discord to S:\SFiles\Programs\AppData\Roaming\Discord\>"S:\SFiles\Programs\HowToUse.txt"
-echo.Put all your ttf files here to make the computer install them using symlinks>"S:\SFiles\Others\fonts\HowToUse.txt" 
-echo.Put all your shortcuts here and it will copy them automatically to your Desktop when you run the setup script.>"S:\SFiles\Others\Desktop.txt"
+echo.Put your corresponding folders into these sub-folders and then run the setup script (example: put %appdata%\Discord to %letter%\SFiles\Programs\AppData\Roaming\Discord\>"%letter%\SFiles\Programs\HowToUse.txt"
+echo.Put all your ttf files here to make the computer install them using symlinks>"%letter%\SFiles\Others\fonts\HowToUse.txt" 
+echo.Put all your shortcuts here and it will copy them automatically to your Desktop when you run the setup script.>"%letter%\SFiles\Others\Desktop.txt"
 
 ECHO.
 if !fontCount! gtr 0 if !symCount! gtr 0 ECHO.Done, !symCount! symbolic links created and !fontCount! fonts added.
 ECHO.You may require to restart your computer for some features to work.
-move "%0" "S:\SFiles\UpdateOrSetup.cmd" >nul 2>nul
+move "%0" "%letter%\SFiles\UpdateOrSetup.cmd" >nul 2>nul
 pause
 exit
 

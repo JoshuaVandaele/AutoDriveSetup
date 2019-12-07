@@ -2,7 +2,7 @@
 ::SET THE VARIABLES HERE:
 set letter=S:||REM Letter you want the drive to be.
 
-::Author: http%letter%//github.com/FolfyBlue/
+::Author: https://github.com/FolfyBlue/
 ::If there is already something in %letter%, the script will just change it's letter.
 ::It is recommended to use this only your own session.
 
@@ -113,7 +113,7 @@ ECHO %path%|find /i "%np:"=%">nul  || setx /M PATH %PATH%;%np%;%Xtra% >nul 2>nul
 :: Adding to the startup my own directory
 mkdir "%letter%\Sfiles\Startup\" >nul 2>nul
 mkdir "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\" >nul 2>nul
-echo.for %%v in ("%letter%\Sfiles\Startup\*") do start "" "%%~v" > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd" >nul 2>nul && ECHO.Added startup programs
+echo.for %%%%v in ("%letter%\Sfiles\Startup\*") do start "" "%%%%~v" > "%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd" 2>nul && ECHO.Added startup programs
 
 if exist "%letter%\SFiles\Programs\Program Files\Sublime Text 3\" (
   reg add "HKCR\*\shell\Open with Sublime Text" /v Icon   /t REG_SZ /d "%letter%\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe,0" /f >nul 2>nul
@@ -121,9 +121,12 @@ if exist "%letter%\SFiles\Programs\Program Files\Sublime Text 3\" (
   reg add "HKCR\*\shell\Open with Sublime Text\command" /ve /d "%letter%\SFiles\Programs\Program Files\Sublime Text 3\sublime_text.exe \"%%1\"" /f >nul 2>nul && ECHO.Added "Open with Sublime Text" to the context menu.
 )
 if exist "%letter%\SFiles\Programs\Program Files\AutoHotkey\" (
-  assoc .ahk=AutoHotkey >nul 2>nul
-  ftype AutoHotkey="%letter%\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%1" >nul 2>nul && ECHO.Associated Auto HotKey files.
-)
+  assoc .ahk=ahk >nul 2>nul
+  ftype ahk="%letter%\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" "%%1" >nul 2>nul && ECHO.Associated Auto HotKey files.
+  reg add "HKEY_CLASSES_ROOT\ahk" /ve /d "Auto HotKey file" >nul 2>nul
+  reg add "HKEY_CLASSES_ROOT\ahk\Shell\DefaultIcon" /ve /d "%letter%\SFiles\Programs\Program Files\AutoHotkey\AutoHotkey.exe" >nul 2>nul
+) 
+:: HKEY_CLASSES_ROOT\ahk\Shell\Open\Command
 
 :: Edit Windows update settings
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v AUOptions /t REG_DWORD /d 4 /f >nul 2>nul && ECHO.Updates will automatically install.

@@ -1,0 +1,9 @@
+Windows Registry Editor Version 5.00
+
+;I don't WANT to use cortana, or even hear about it, fuck you
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
+"AllowCortana"=dword:00000000
+"AllowCortanaAboveLock"=dword:00000000
+"AllowSearchToUseLocation"=dword:00000000
+

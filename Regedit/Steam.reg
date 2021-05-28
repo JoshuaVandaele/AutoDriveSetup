@@ -1,0 +1,21 @@
+Windows Registry Editor Version 5.00
+
+;Add back some of steam's registry entries for steam shortcuts to work
+
+[HKEY_CLASSES_ROOT\steam]
+@="URL:steam protocol"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\steam\Shell]
+
+[HKEY_CLASSES_ROOT\steam\Shell\Open]
+
+[HKEY_CLASSES_ROOT\steam\Shell\Open\Command]
+@="\"D:\\Program Files\\Steam\\Steam.exe\" \"%1\""
+
+[HKEY_CLASSES_ROOT\steam\DefaultIcon]
+@="steam.exe"
+
+[HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\Shell\MuiCache]
+"C:\\Program Files (x86)\\Steam\\steam.exe.ApplicationCompany" = "Valve Corporation"
+"C:\\Program Files (x86)\\Steam\\steam.exe.FriendlyAppName" = "Steam Client Bootstrapper"

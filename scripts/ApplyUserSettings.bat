@@ -16,8 +16,9 @@ powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microso
 ::Enable hibernation option
 powercfg.exe /hibernate on
 
-::Add git shortcuts
+::Add git shortcuts and preferences
 git config --global alias.submit "!git add -A && git commit && git push" || REM Don't judge me I'm lazy ok
+git config --global core.editor "C:\Program Files\Sublime Text\sublime_text.exe"
 
 ::Move settings files
 copy /y /v "%SetupFolder%\files\WT\settings.json" "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" || REM Windows terminal settings

@@ -13,7 +13,7 @@ start choco install google-backup-and-sync
 start winget install "Discord.DiscordCanary"
 start winget install "Discord.Discord"
 
-#User software
+::User software
 start winget install "ShareX.ShareX"
 start winget install "VideoLAN.VLCNightly"
 start winget install "WinSCP.WinSCP"
@@ -24,7 +24,7 @@ start choco install utorrent
 start winget install "Lexikos.AutoHotkey"
 start winget install "LogMeIn.LastPasswin"
 
-#Dev
+::Dev
 start winget install "Windows Terminal"
 start winget install "SublimeHQ.SublimeText.4"
 start winget install "Canonical.Ubuntu"
@@ -40,6 +40,7 @@ start winget install "Oracle.VirtualBox"
 ::Gaming
 start winget install "EpicGames.EpicGamesLauncher"
 start winget install "Oculus"
+start winget install "StefanSundin.Superf4"
 
 ::Office
 start winget install "LibreOffice.LibreOffice"

@@ -12,6 +12,10 @@ fsutil behavior set SymlinkEvaluation R2R:1
 ::Windows Features
 powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart"
 powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart"
+powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient -All -NoRestart"
+
+::Rename Computer
+powershell /command "Rename-Computer -NewName Folfy-Desktop"
 
 ::Enable hibernation option
 powercfg.exe /hibernate on

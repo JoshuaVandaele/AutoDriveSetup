@@ -36,6 +36,7 @@ start winget install "UnityTechnologies.UnityHub"
 start winget install "Git.Git"
 start winget install "JetBrains.IntelliJIDEA.Community"
 start winget install "Oracle.VirtualBox"
+start winget install "TexasInstruments.TIConnectCE"
 
 ::Gaming
 start winget install "EpicGames.EpicGamesLauncher"

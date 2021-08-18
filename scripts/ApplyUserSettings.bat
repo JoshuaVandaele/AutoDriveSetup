@@ -15,7 +15,7 @@ powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microso
 powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient -All -NoRestart"
 
 ::Rename Computer
-powershell /command "Rename-Computer -NewName Folfy-Desktop"
+powershell /command "Rename-Computer -NewName Desktop-Folfy"
 
 ::Enable hibernation option
 powercfg.exe /hibernate on

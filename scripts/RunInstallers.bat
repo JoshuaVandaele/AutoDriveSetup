@@ -8,48 +8,49 @@ call "%SetupFolder%\tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
 
 ::Communication
-start winget install "Google.Chrome"
+start winget install --id "Google.Chrome"
 start choco install google-backup-and-sync
-start winget install "Discord.DiscordCanary"
-start winget install "Discord.Discord"
+start winget install --id "Discord.DiscordCanary"
+start winget install --id "Discord.Discord"
 
 ::User software
-start winget install "ShareX.ShareX"
-start winget install "VideoLAN.VLCNightly"
-start winget install "WinSCP.WinSCP"
-start winget install "7zip"
-start winget install "WinDirStat"
+start winget install --id "ShareX.ShareX"
+start winget install --id "VideoLAN.VLCNightly"
+start winget install --id "WinSCP.WinSCP"
+start winget install --id "7zip"
+start winget install --id "WinDirStat"
 start choco install cheatengine
 start choco install utorrent
-start winget install "Lexikos.AutoHotkey"
-start winget install "LogMeIn.LastPasswin"
+start winget install --id "Lexikos.AutoHotkey"
+start winget install --id "LogMeIn.LastPasswin"
 
 ::Dev
-start winget install "Windows Terminal"
-start winget install "SublimeHQ.SublimeText.4"
-start winget install "Canonical.Ubuntu"
-start winget install "Microsoft.VisualStudio.2019.Community"
-start winget install "Python.Python.3"
+start winget install --id "Windows Terminal"
+start winget install --id "SublimeHQ.SublimeText.4"
+start winget install --id "Canonical.Ubuntu"
+start winget install --id "Microsoft.VisualStudio.2019.Community"
+start winget install --id "Python.Python.3"
+start winget install --id "Google.AndroidStudio"
 start choco install lua
-start winget install "Oracle.JavaRuntimeEnvironment"
-start winget install "UnityTechnologies.UnityHub"
-start winget install "Git.Git"
-start winget install "JetBrains.IntelliJIDEA.Community"
-start winget install "Oracle.VirtualBox"
-start winget install "TexasInstruments.TIConnectCE"
+start winget install --id "Oracle.JavaRuntimeEnvironment"
+start winget install --id "UnityTechnologies.UnityHub"
+start winget install --id "Git.Git"
+start winget install --id "JetBrains.IntelliJIDEA.Community"
+start winget install --id "Oracle.VirtualBox"
+start winget install --id "TexasInstruments.TIConnectCE"
 
 ::Gaming
-start winget install "EpicGames.EpicGamesLauncher"
-start winget install "Oculus"
-start winget install "StefanSundin.Superf4"
+start winget install --id "EpicGames.EpicGamesLauncher"
+start winget install --id "Oculus"
+start winget install --id "StefanSundin.Superf4"
 
 ::Office
-start winget install "LibreOffice.LibreOffice"
-start winget install "KDE.Krita"
+start winget install --id "LibreOffice.LibreOffice"
+start winget install --id "KDE.Krita"
 
 ::Hardware
-start winget install "Nvidia.GeForceExperience"
-start winget install "REALiX.HWiNFO"
+start winget install --id "Nvidia.GeForceExperience"
+start winget install --id "REALiX.HWiNFO"
 
 choco feature disable -n allowGlobalConfirmation
 call "%SetupFolder%\tools\RefreshEnv.cmd"

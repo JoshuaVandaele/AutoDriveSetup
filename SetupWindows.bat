@@ -15,6 +15,6 @@ exit
 cd /d "%SetupFolder%"
 cls
 
-forfiles /P D:\Setup\scripts\ /c "cmd /c echo Starting @FNAME. & cmd.exe /c start cmd.exe /c @PATH"
+forfiles /P %SetupFolder%\scripts\ /c "cmd /c echo Starting @FNAME. & cmd.exe /c start cmd.exe /c @PATH"
 echo Done.
 exit

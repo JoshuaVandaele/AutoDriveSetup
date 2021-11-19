@@ -81,3 +81,9 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /
 powershell /command "Install-Module PSWindowsUpdate -Force"
 powershell /command "Get-WindowsUpdate"
 powershell /command "Install-WindowsUpdate"
+
+::Windows app store updates
+powershell /command "Get-CimInstance -Namespace 'Root\cimv2\mdm\dmmap' -ClassName 'MDM_EnterpriseModernAppManagement_AppManagement01' | Invoke-CimMethod -MethodName UpdateScanMethod"
+
+::All other updates
+winget upgrade --all

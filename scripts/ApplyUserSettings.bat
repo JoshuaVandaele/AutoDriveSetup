@@ -14,6 +14,9 @@ powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microso
 powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart"
 powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient -All -NoRestart"
 
+::edit path
+setx PATH "%PATH%;%localappdata%\Android\Sdk\platform-tools\"
+
 ::Rename Computer
 powershell /command "Rename-Computer -NewName Desktop-Folfy"
 
@@ -30,8 +33,8 @@ copy /y /v "%SetupFolder%\files\WT\settings.json" "%LOCALAPPDATA%\Packages\Micro
 ::Reg files
 for /r %%f in ("%SetupFolder%regedit\*") do (reg import "%%f")
 
-::Show file extensions in Explorer
-reg add "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t  REG_DWORD /d 0 /f
+::Maximum performence
+powercfg /setactive SCHEME_MIN
 
 ::Map network drives
 runas /trustlevel:0x20000 "net use Z: \\server\5TBStockage\Stockage Josh"

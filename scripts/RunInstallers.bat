@@ -12,7 +12,7 @@ choco feature enable -n allowGlobalConfirmation
 
 ::Communication
 start winget install %wingetargs% --id "Google.Chrome" 
-start choco install google-backup-and-sync
+start winget install %wingetargs% --id "Google.Drive"
 start winget install %wingetargs% --id "Discord.Discord" 
 start "%SetupFolder%\scripts\custom_installers\powercord.bat"
 
@@ -23,7 +23,7 @@ start winget install %wingetargs% --id "WinSCP.WinSCP"
 start winget install %wingetargs% --id "7zip.7zip" 
 start winget install %wingetargs% --id "WinDirStat.WinDirStat" 
 start choco install cheatengine
-start choco install utorrent
+start winget install %wingetargs% --id "qBittorrent.qBittorrent"
 start winget install %wingetargs% --id "Lexikos.AutoHotkey" 
 start winget install %wingetargs% --id "LogMeIn.LastPasswin" 
 

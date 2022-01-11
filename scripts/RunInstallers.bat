@@ -1,4 +1,7 @@
 title Installing Apps..
+
+set wingetargs=--accept-package-agreements --accept-source-agreements --silent
+
 ::Install chocolatey
 powershell /command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted"
 powershell /command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
@@ -8,58 +11,52 @@ call "%SetupFolder%\tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
 
 ::Communication
-start winget install --id "Google.Chrome"
+start winget install %wingetargs% --id "Google.Chrome" 
 start choco install google-backup-and-sync
-start winget install --id "Discord.DiscordCanary"
-start winget install --id "Discord.Discord"
+start winget install %wingetargs% --id "Discord.Discord" 
+start "%SetupFolder%\scripts\custom_installers\powercord.bat"
 
 ::User software
-start winget install --id "ShareX.ShareX"
-start winget install --id "VideoLAN.VLCNightly"
-start winget install --id "WinSCP.WinSCP"
-start winget install --id "7zip"
-start winget install --id "WinDirStat"
+start winget install %wingetargs% --id "ShareX.ShareX" 
+start winget install %wingetargs% --id "VideoLAN.VLCNightly" 
+start winget install %wingetargs% --id "WinSCP.WinSCP" 
+start winget install %wingetargs% --id "7zip" 
+start winget install %wingetargs% --id "WinDirStat" 
 start choco install cheatengine
 start choco install utorrent
-start winget install --id "Lexikos.AutoHotkey"
-start winget install --id "LogMeIn.LastPasswin"
+start winget install %wingetargs% --id "Lexikos.AutoHotkey" 
+start winget install %wingetargs% --id "LogMeIn.LastPasswin" 
 
 ::Dev
-start winget install --id "Windows Terminal"
-start winget install --id "SublimeHQ.SublimeText.4"
-start winget install --id "Canonical.Ubuntu"
-start winget install --id "Microsoft.VisualStudio.2019.Community"
-start winget install --id "Python.Python.3"
-start winget install --id "Google.AndroidStudio"
+start winget install %wingetargs% --id "Windows Terminal" 
+start winget install %wingetargs% --id "SublimeHQ.SublimeText.4" 
+start winget install %wingetargs% --id "Python.Python.3" 
+start "%SetupFolder%\scripts\custom_installers\ubuntu.bat" 
+start winget install %wingetargs% --id "Microsoft.VisualStudio.2019.Community" 
+start winget install %wingetargs% --id "Google.AndroidStudio" 
 start choco install lua
-start winget install --id "Oracle.JavaRuntimeEnvironment"
-start winget install --id "UnityTechnologies.UnityHub"
-start winget install --id "Git.Git"
-start winget install --id "JetBrains.IntelliJIDEA.Community"
-start winget install --id "Oracle.VirtualBox"
-start winget install --id "TexasInstruments.TIConnectCE"
+start winget install %wingetargs% --id "Oracle.JavaRuntimeEnvironment" 
+start winget install %wingetargs% --id "UnityTechnologies.UnityHub" 
+REM start winget install --id "Git.Git" || REM Executed in custom_installers\powercord.bat
+start winget install %wingetargs% --id "JetBrains.IntelliJIDEA.Community" 
+start winget install %wingetargs% --id "Oracle.VirtualBox" 
+start winget install %wingetargs% --id "TexasInstruments.TIConnectCE" 
 
 ::Gaming
-start winget install --id "EpicGames.EpicGamesLauncher"
-start winget install --id "Oculus"
-start winget install --id "StefanSundin.Superf4"
+start winget install %wingetargs% --id "EpicGames.EpicGamesLauncher" 
+start winget install %wingetargs% --id "Oculus" 
+start winget install %wingetargs% --id "StefanSundin.Superf4" 
 
 ::Office
-start winget install --id "LibreOffice.LibreOffice"
-start winget install --id "KDE.Krita"
+start winget install %wingetargs% --id "LibreOffice.LibreOffice" 
+start winget install %wingetargs% --id "KDE.Krita" 
 
 ::Hardware
-start winget install --id "Nvidia.GeForceExperience"
-start winget install --id "REALiX.HWiNFO"
+start winget install %wingetargs% --id "Nvidia.GeForceExperience" 
+start winget install %wingetargs% --id "REALiX.HWiNFO" 
 
 choco feature disable -n allowGlobalConfirmation
 call "%SetupFolder%\tools\RefreshEnv.cmd"
-
-::WSL/Ubuntu
-wsl --update || REM WSL->WSL2
-ubuntu2004 install --root || REM Install ubuntu
-ubuntu2004 run sudo apt-get update || REM Update ubuntu, because fresh installs aren't already fully updated for some reason
-echo y|ubuntu2004 run sudo apt-get upgrade
 
 ::Update python's pip, because apparently it doesn't come with the latest pip version
 python.exe -m pip install --upgrade pip

@@ -20,15 +20,15 @@ start "%SetupFolder%\scripts\custom_installers\powercord.bat"
 start winget install %wingetargs% --id "ShareX.ShareX" 
 start winget install %wingetargs% --id "VideoLAN.VLCNightly" 
 start winget install %wingetargs% --id "WinSCP.WinSCP" 
-start winget install %wingetargs% --id "7zip" 
-start winget install %wingetargs% --id "WinDirStat" 
+start winget install %wingetargs% --id "7zip.7zip" 
+start winget install %wingetargs% --id "WinDirStat.WinDirStat" 
 start choco install cheatengine
 start choco install utorrent
 start winget install %wingetargs% --id "Lexikos.AutoHotkey" 
 start winget install %wingetargs% --id "LogMeIn.LastPasswin" 
 
 ::Dev
-start winget install %wingetargs% --id "Windows Terminal" 
+start winget install %wingetargs% --id "Microsoft.WindowsTerminal" 
 start winget install %wingetargs% --id "SublimeHQ.SublimeText.4" 
 start winget install %wingetargs% --id "Python.Python.3" 
 start "%SetupFolder%\scripts\custom_installers\ubuntu.bat" 
@@ -43,8 +43,7 @@ start winget install %wingetargs% --id "Oracle.VirtualBox"
 start winget install %wingetargs% --id "TexasInstruments.TIConnectCE" 
 
 ::Gaming
-start winget install %wingetargs% --id "EpicGames.EpicGamesLauncher" 
-start winget install %wingetargs% --id "Oculus" 
+start winget install %wingetargs% --id "EpicGames.EpicGamesLauncher"
 start winget install %wingetargs% --id "StefanSundin.Superf4" 
 
 ::Office

@@ -41,6 +41,7 @@ REM start winget install --id "Git.Git" || REM Executed in custom_installers\pow
 start winget install %wingetargs% --id "JetBrains.IntelliJIDEA.Community" 
 start winget install %wingetargs% --id "Oracle.VirtualBox" 
 start winget install %wingetargs% --id "TexasInstruments.TIConnectCE" 
+start winget install %wingetargs% --id "Microsoft.OpenJDK.17"
 
 ::Gaming
 start winget install %wingetargs% --id "EpicGames.EpicGamesLauncher"

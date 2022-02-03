@@ -33,6 +33,14 @@ copy /y /v "%SetupFolder%\files\WT\settings.json" "%LOCALAPPDATA%\Packages\Micro
 ::Reg files
 for /r %%f in ("%SetupFolder%regedit\*") do (reg import "%%f")
 
+::Remove old Desktop/Downloads/etc folder as the Reg file moved their location
+RMDIR /S /Q "%USERPROFILE%\Desktop"
+RMDIR /S /Q "%USERPROFILE%\Documents"
+RMDIR /S /Q "%USERPROFILE%\Downloads"
+RMDIR /S /Q "%USERPROFILE%\Videos"
+RMDIR /S /Q "%USERPROFILE%\Pictures"
+RMDIR /S /Q "%USERPROFILE%\Music"
+
 ::Maximum performence
 powercfg /setactive SCHEME_MIN
 

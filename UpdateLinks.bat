@@ -8,6 +8,7 @@ if %errorLevel% == 0 (
 exit
 
 :setup
-REG EXPORT "HKCU\Software\Microsoft\Windows\Shell\Bags\1\Desktop" "D:\SETUP\Regedit\DesktopLayout.reg" /y || REM Desktop layout, but this doesnt seem to work in newer windows versions
+REG EXPORT "HKCU\Software\Microsoft\Windows\Shell\Bags\1\Desktop" "D:\SETUP\Regedit\DesktopLayoutPt1.reg" /y
+REG EXPORT "HKCU\Software\Microsoft\Windows\Shell\BagMRU" "D:\SETUP\Regedit\DesktopLayoutPt2.reg" /y
 
 copy /y /v "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" "D:\SETUP\files\WT\settings.json" || REM Windows Terminal settings file

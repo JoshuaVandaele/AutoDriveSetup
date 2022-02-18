@@ -1,6 +1,6 @@
 @echo off
 
-set SetupFolder="D:\SETUP"
+set SetupFolder="%~dp0"
 
 ::Elevate to administrator privileges if you do not have them
 net session >nul 2>&1 || REM Admin only command, if the error level is 0, it means we have admin privileges

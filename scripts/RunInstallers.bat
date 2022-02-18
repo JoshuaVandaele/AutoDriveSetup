@@ -72,6 +72,7 @@ del /F /Q "%SetupFolder%scripts/error_log.txt"
 
 ::Tasks to run at the next start of windows
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "ShareX" /d "%SetupFolder%files\ShareXUploader.sxcu" || REM Add ShareX's Custom Uploader by running it at next restart
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "WallpaperEngine" /d "D:\Program Files (x86)\Steam\steam.exe -applaunch 431960" || REM Install Wallpaper Engine at next restart
 
 ::Windows Updates
 powershell /command "Install-Module PSWindowsUpdate -Force"

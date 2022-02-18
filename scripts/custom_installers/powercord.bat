@@ -1,7 +1,7 @@
 cd "%SetupFolder%files"
 
 ::Install Discord and needed Powercord components
-winget install %wingetargs% --id "Discord.DiscordCanary"
+winget install %wingetargs% --id "Discord.Discord.Canary"
 winget install %wingetargs% --id "Git.Git"
 winget install %wingetargs% --id "OpenJS.NodeJS.LTS"
 call "%SetupFolder%tools\RefreshEnv.cmd"

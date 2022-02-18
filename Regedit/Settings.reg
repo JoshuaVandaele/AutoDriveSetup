@@ -1,7 +1,7 @@
 Windows Registry Editor Version 5.00
 
 ;Use dark theme
-[KEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
+[HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
 "AppsUseLightTheme"=dword:00000000
 "SystemUseLightTheme"=dword:00000000
 

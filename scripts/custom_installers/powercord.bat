@@ -1,10 +1,10 @@
-cd "%SetupFolder%\files"
+cd "%SetupFolder%files"
 
 ::Install Discord and needed Powercord components
 winget install %wingetargs% --id "Discord.DiscordCanary"
 winget install %wingetargs% --id "Git.Git"
 winget install %wingetargs% --id "OpenJS.NodeJS.LTS"
-call "%SetupFolder%\tools\RefreshEnv.cmd"
+call "%SetupFolder%tools\RefreshEnv.cmd"
 
 ::Download and inject powercord
 git clone https://github.com/powercord-org/powercord

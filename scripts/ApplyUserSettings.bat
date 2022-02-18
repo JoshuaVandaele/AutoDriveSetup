@@ -1,6 +1,6 @@
 title Applying your settings..
 ::Set refreshrates (Requires a restart)
-"%SetupFolder%\tools\ChangeScreenResolution.exe" /f=165
+"%SetupFolder%tools\ChangeScreenResolution.exe" /f=165
 
 ::Spam f8 to get into the good ole recovery menu
 bcdedit /set "{current}" bootmenupolicy legacy
@@ -28,7 +28,7 @@ git config --global alias.submit "!git add -A && git commit && git push" || REM 
 git config --global core.editor "'C:\Program Files\Sublime Text\subl.exe' -nw"
 
 ::Move settings files
-copy /y /v "%SetupFolder%\files\WT\settings.json" "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" || REM Windows terminal settings
+copy /y /v "%SetupFolder%files\WT\settings.json" "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" || REM Windows terminal settings
 
 ::Reg files
 for /r %%f in ("%SetupFolder%regedit\*") do (reg import "%%f")
@@ -45,13 +45,9 @@ RMDIR /S /Q "%USERPROFILE%\Music"
 powercfg /setactive SCHEME_MIN
 
 ::Map network drives
-runas /trustlevel:0x20000 "net use Z: \\server\5TBStockage\Stockage Josh"
+::runas /trustlevel:0x20000 "net use Z: \\server\5TBStockage\Stockage Josh"
 
 ::Reset indexing so new programs are visible
 net stop wsearch
 REG ADD "HKLM\SOFTWARE\Microsoft\Windows Search" /v SetupCompletedSuccessfully /t REG_DWORD /d 0 /f
 del "%ProgramData%\Microsoft\Search\Data\Applications\Windows\Windows.edb"
-:wsearch
-  net start wsearch
-  IF NOT %ERRORLEVEL%==0 (goto :wsearch) ELSE goto :wsearchEnd
-:wsearchEnd

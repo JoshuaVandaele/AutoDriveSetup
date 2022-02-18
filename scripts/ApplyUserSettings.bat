@@ -33,6 +33,9 @@ copy /y /v "%SetupFolder%files\WT\settings.json" "%LOCALAPPDATA%\Packages\Micros
 ::Reg files
 for /r %%f in ("%SetupFolder%regedit\*") do (reg import "%%f")
 
+::Hide the taskbar
+powershell -command "&{$p='HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3';$v=(Get-ItemProperty -Path $p).Settings;$v[8]=3;&Set-ItemProperty -Path $p -Name Settings -Value $v;&Stop-Process -f -ProcessName explorer}"
+
 ::Remove old Desktop/Downloads/etc folder as the Reg file moved their location
 RMDIR /S /Q "%USERPROFILE%\Desktop"
 RMDIR /S /Q "%USERPROFILE%\Documents"

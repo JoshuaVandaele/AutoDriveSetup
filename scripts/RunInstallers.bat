@@ -66,8 +66,6 @@ pip install urllib3 || REM Installing required libraries for steam shortcut
 pip install pillow
 pip install vdf
 echo folfy_blue|python "%SetupFolder%tools\steamshortcut.py" || REM Credits go to https://github.com/JeeZeh/steam-shortcut-generator
-robocopy /MOVE "%SetupFolder%shortcuts" "C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Steam Games" || REM Move shortcuts to the start menu
-robocopy /MOVE "%SetupFolder%tools/shortcuts" "C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Steam Games" || REM Sometimes it doesn't work, idk
 del /F /Q "%SetupFolder%error_log.txt" || REM Delete error logs it generates every time for some reason
 del /F /Q "%SetupFolder%tools/error_log.txt"
 del /F /Q "%SetupFolder%scripts/error_log.txt"

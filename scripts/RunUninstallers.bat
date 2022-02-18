@@ -11,6 +11,7 @@ REG delete HKCU\Environment /F /V "OneDriveConsumer"
 
 ::Preinstalled junk
 PowerShell -Command "Get-AppxPackage *Candy* | Remove-AppxPackage"
+PowerShell -Command "Get-AppxPackage *MicrosoftTeams* | Remove-AppxPackage"
 
 ::Remove unwanted tasks
 schtasks /Change /TN "Microsoft\Office\OfficeTelemetryAgentLogOn" /Disable

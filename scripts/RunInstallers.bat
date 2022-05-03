@@ -1,7 +1,5 @@
 title Installing Apps..
 
-set wingetargs=--accept-package-agreements --accept-source-agreements --silent
-
 ::Install chocolatey
 powershell /command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted"
 powershell /command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
@@ -11,60 +9,56 @@ call "%SetupFolder%tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
 
 ::Communication
-start winget install %wingetargs% --id "Google.Chrome" 
-start winget install %wingetargs% --id "Google.Drive"
-start winget install %wingetargs% --id "Discord.Discord" 
-start cmd.exe /c "%SetupFolder%scripts\custom_installers\powercord.bat"
+call RunInstaller "winget" "Google.Chrome"
+call RunInstaller "winget" "Google.Drive"
+call RunInstaller "winget" "Discord.Discord" 
+call RunInstaller "batch" "%SetupFolder%scripts\custom_installers\powercord.bat"
 
 ::User software
-start winget install %wingetargs% --id "ShareX.ShareX" 
-start winget install %wingetargs% --id "VideoLAN.VLCNightly" 
-start winget install %wingetargs% --id "WinSCP.WinSCP" 
-start winget install %wingetargs% --id "7zip.7zip" 
-start winget install %wingetargs% --id "WinDirStat.WinDirStat" 
-start choco install cheatengine
-start winget install %wingetargs% --id "qBittorrent.qBittorrent"
-start winget install %wingetargs% --id "Lexikos.AutoHotkey" 
-start winget install %wingetargs% --id "LogMeIn.LastPasswin" 
+call RunInstaller "winget" "ShareX.ShareX" 
+call RunInstaller "winget" "VideoLAN.VLCNightly" 
+call RunInstaller "winget" "WinSCP.WinSCP" 
+call RunInstaller "winget" "7zip.7zip" 
+call RunInstaller "winget" "WinDirStat.WinDirStat" 
+call RunInstaller "choco" cheatengine
+call RunInstaller "winget" "qBittorrent.qBittorrent"
+call RunInstaller "winget" "Lexikos.AutoHotkey"
 
 ::Dev
-start winget install %wingetargs% --id "Microsoft.WindowsTerminal" 
-start winget install %wingetargs% --id "SublimeHQ.SublimeText.4" 
-start cmd.exe /c "%SetupFolder%scripts\custom_installers\ubuntu.bat" 
-start winget install %wingetargs% --id "Microsoft.VisualStudio.2019.Community" 
-start winget install %wingetargs% --id "Google.AndroidStudio" 
-start choco install lua
-start winget install %wingetargs% --id "Oracle.JavaRuntimeEnvironment" 
-start winget install %wingetargs% --id "UnityTechnologies.UnityHub" 
-REM start winget install --id "Git.Git" || REM Executed in custom_installers\powercord.bat
-start winget install %wingetargs% --id "JetBrains.IntelliJIDEA.Community" 
-start winget install %wingetargs% --id "Oracle.VirtualBox" 
-start winget install %wingetargs% --id "TexasInstruments.TIConnectCE" 
-start winget install %wingetargs% --id "Microsoft.OpenJDK.17"
+call RunInstaller "winget" "Microsoft.WindowsTerminal" 
+call RunInstaller "winget" "SublimeHQ.SublimeText.4" 
+call RunInstaller "batch" "%SetupFolder%scripts\custom_installers\ubuntu.bat" 
+call RunInstaller "winget" "Microsoft.VisualStudio.2019.Community" 
+call RunInstaller "winget" "Google.AndroidStudio" 
+call RunInstaller "choco" "lua"
+call RunInstaller "winget" "Python.Python.3" 
+call RunInstaller "winget" "Oracle.JavaRuntimeEnvironment" 
+call RunInstaller "winget" "UnityTechnologies.UnityHub" 
+call RunInstaller "winget" "JetBrains.IntelliJIDEA.Community" 
+call RunInstaller "winget" "Oracle.VirtualBox" 
+call RunInstaller "winget" "TexasInstruments.TIConnectCE" 
+call RunInstaller "winget" "Microsoft.OpenJDK.17"
 
 ::Gaming
-start winget install %wingetargs% --id "EpicGames.EpicGamesLauncher"
-start winget install %wingetargs% --id "StefanSundin.Superf4" 
+call RunInstaller "winget" "EpicGames.EpicGamesLauncher"
+call RunInstaller "winget" "StefanSundin.Superf4" 
 
 ::Office
-start winget install %wingetargs% --id "LibreOffice.LibreOffice" 
-start winget install %wingetargs% --id "KDE.Krita" 
+call RunInstaller "winget" "LibreOffice.LibreOffice" 
+call RunInstaller "winget" "KDE.Krita" 
 
 ::Hardware
-start winget install %wingetargs% --id "Nvidia.GeForceExperience" 
-start winget install %wingetargs% --id "REALiX.HWiNFO" 
+call RunInstaller "winget" "Nvidia.GeForceExperience" 
+call RunInstaller "winget" "REALiX.HWiNFO" 
 
 choco feature disable -n allowGlobalConfirmation
 call "%SetupFolder%tools\RefreshEnv.cmd"
 
 ::Update python's pip, because apparently it doesn't come with the latest pip version
-winget install %wingetargs% --id "Python.Python.3" 
 python.exe -m pip install --upgrade pip
 
 ::Recreate steam shortcuts
-pip install urllib3 || REM Installing required libraries for steam shortcut
-pip install pillow
-pip install vdf
+pip install urllib3 pillow vdf || REM Installing required libraries for steam shortcut
 echo folfy_blue|python "%SetupFolder%tools\steamshortcut.py" || REM Credits go to https://github.com/JeeZeh/steam-shortcut-generator
 del /F /Q "%SetupFolder%error_log.txt" || REM Delete error logs it generates every time for some reason
 del /F /Q "%SetupFolder%tools/error_log.txt"

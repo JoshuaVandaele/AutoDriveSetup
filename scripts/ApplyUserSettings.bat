@@ -14,25 +14,17 @@ powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microso
 powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart"
 powershell /command  "Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient -All -NoRestart"
 
-::edit path
-setx PATH "%PATH%;%localappdata%\Android\Sdk\platform-tools\"
-
 ::Rename Computer
 powershell /command "Rename-Computer -NewName Desktop-Folfy"
 
 ::Enable hibernation option
 powercfg.exe /hibernate on
 
-::Add git shortcuts and preferences
-git config --global alias.submit "!git add -A && git commit && git push" || REM Don't judge me I'm lazy ok
-git config --global alias.upstreamfetch "!git fetch upstream && git checkout master && git reset --hard upstream/master || ECHO.Add your upstream repo with git remote add upstream /url/to/original/repo"
-git config --global core.editor "'C:\Program Files\Sublime Text\subl.exe' -nw"
-
 ::Move settings files
 copy /y /v "%SetupFolder%files\WT\settings.json" "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" || REM Windows terminal settings
 
 ::Reg files
-for /r %%f in ("%SetupFolder%regedit\*") do (reg import "%%f")
+forfiles /P %SetupFolder%regedit\ /C "cmd /c reg import @path"
 
 ::Hide the taskbar
 powershell -command "&{$p='HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3';$v=(Get-ItemProperty -Path $p).Settings;$v[8]=3;&Set-ItemProperty -Path $p -Name Settings -Value $v;&Stop-Process -f -ProcessName explorer}"

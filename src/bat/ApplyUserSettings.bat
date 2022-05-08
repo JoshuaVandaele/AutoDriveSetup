@@ -1,6 +1,6 @@
 title Applying your settings..
 ::Set refreshrates (Requires a restart)
-"%SetupFolder%\srctools\ChangeScreenResolution.exe" /f=165
+"%SetupFolder%\src\tools\ChangeScreenResolution.exe" /f=165
 
 ::Spam f8 to get into the good ole recovery menu
 bcdedit /set "{current}" bootmenupolicy legacy

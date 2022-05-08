@@ -1,8 +1,8 @@
 ::Install Discord and needed Powercord components
 winget install %wingetargs% --id "Discord.Discord.Canary"
 winget install %wingetargs% --id "OpenJS.NodeJS.LTS"
-call "%SetupFolder%scripts\custom_installers\gitinstall.bat"
-call "%SetupFolder%tools\RefreshEnv.cmd"
+call "%SetupFolder%src\installers\gitinstall.bat"
+call "%SetupFolder%src\tools\RefreshEnv.cmd"
 
 ::Download and inject powercord
 cd "%SetupFolder%files"

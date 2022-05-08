@@ -19,6 +19,6 @@ echo Starting..
 cd /d %SetupFolder%
 cls
 echo Starting..
-forfiles /P %SetupFolder%src\bat\ /c "cmd /c echo Starting @FNAME. & cmd.exe /c start cmd.exe /c @PATH"
+forfiles /P %SetupFolder%src\bat\setup\ /c "cmd /c echo Starting @FNAME. & cmd.exe /c start cmd.exe /c @PATH"
 echo Done.
 exit

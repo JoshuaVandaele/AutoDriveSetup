@@ -1,7 +1,6 @@
 Windows Registry Editor Version 5.00
 
-;I don't WANT to use cortana, or even hear about it, fuck you
-
+; Cortana-B-Gone
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
 "AllowCortana"=dword:0
 "AllowCortanaAboveLock"=dword:0

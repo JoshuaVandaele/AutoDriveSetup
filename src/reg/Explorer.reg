@@ -1,0 +1,21 @@
+Windows Registry Editor Version 5.00
+
+; Show file extensions
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"HideFileExt"=dword:0
+
+; Launch explorer to "this PC"
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"LaunchTo"=dword:1
+
+;Don't rename shortcuts to have "- Shortcut"
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates]
+"RenameNameTemplate"="%s.lnk"
+
+; Show the file transfer thing with the cool graph
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager]
+"EnthusiastMode"=dword:1
+
+; Don't show recently opened files
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer]
+"ShowRecent"=dword:0

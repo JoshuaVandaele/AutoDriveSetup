@@ -8,4 +8,4 @@ if %packageManager%=="choco" (choco install %package%)
 if %packageManager%=="batch" (call %package%)
 
 cd /d %SetupFolder%
-call "%SetupFolder%tools\RefreshEnv.cmd"
+call "%SetupFolder%\src\tools\RefreshEnv.cmd"

@@ -5,14 +5,14 @@ powershell /command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unr
 powershell /command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
 
 ::Install.. everything else
-call "%SetupFolder%tools\RefreshEnv.cmd"
+call "%SetupFolder%\src\tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
 
 ::Communication
 call RunInstaller "winget" "Google.Chrome"
 call RunInstaller "winget" "Google.Drive"
 call RunInstaller "winget" "Discord.Discord" 
-call RunInstaller "batch" "%SetupFolder%scripts\custom_installers\powercord.bat"
+call RunInstaller "batch" "%SetupFolder%\src\bat\custom_installers\powercord.bat"
 
 ::User software
 call RunInstaller "winget" "ShareX.ShareX" 
@@ -27,7 +27,7 @@ call RunInstaller "winget" "Lexikos.AutoHotkey"
 ::Dev
 call RunInstaller "winget" "Microsoft.WindowsTerminal" 
 call RunInstaller "winget" "SublimeHQ.SublimeText.4" 
-call RunInstaller "batch" "%SetupFolder%scripts\custom_installers\ubuntu.bat" 
+call RunInstaller "batch" "%SetupFolder%\src\bat\custom_installers\ubuntu.bat" 
 call RunInstaller "winget" "Microsoft.VisualStudio.2019.Community" 
 call RunInstaller "winget" "Google.AndroidStudio" 
 call RunInstaller "choco" "lua"
@@ -52,17 +52,17 @@ call RunInstaller "winget" "Nvidia.GeForceExperience"
 call RunInstaller "winget" "REALiX.HWiNFO" 
 
 choco feature disable -n allowGlobalConfirmation
-call "%SetupFolder%tools\RefreshEnv.cmd"
+call "%SetupFolder%\src\tools\RefreshEnv.cmd"
 
 ::Update python's pip, because apparently it doesn't come with the latest pip version
 python.exe -m pip install --upgrade pip
 
 ::Recreate steam shortcuts
 pip install urllib3 pillow vdf || REM Installing required libraries for steam shortcut
-echo folfy_blue|python "%SetupFolder%tools\steamshortcut.py" || REM Credits go to https://github.com/JeeZeh/steam-shortcut-generator
-del /F /Q "%SetupFolder%error_log.txt" || REM Delete error logs it generates every time for some reason
-del /F /Q "%SetupFolder%tools/error_log.txt"
-del /F /Q "%SetupFolder%scripts/error_log.txt"
+echo folfy_blue|python "%SetupFolder%\src\tools\steamshortcut.py" || REM Credits go to https://github.com/JeeZeh/steam-shortcut-generator
+del /F /Q "%SetupFolder%error_log.txt" || REM Delete error logs it generates everywhere for some reason
+del /F /Q "%SetupFolder%\src\tools/error_log.txt"
+del /F /Q "%SetupFolder%\src\bat/error_log.txt"
 
 ::Tasks to run at the next start of windows
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "ShareX" /d "%SetupFolder%files\ShareXUploader.sxcu" || REM Add ShareX's Custom Uploader by running it at next restart

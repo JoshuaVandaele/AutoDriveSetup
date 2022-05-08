@@ -1,6 +1,6 @@
 title Applying your settings..
 ::Set refreshrates (Requires a restart)
-"%SetupFolder%tools\ChangeScreenResolution.exe" /f=165
+"%SetupFolder%\srctools\ChangeScreenResolution.exe" /f=165
 
 ::Spam f8 to get into the good ole recovery menu
 bcdedit /set "{current}" bootmenupolicy legacy
@@ -24,7 +24,7 @@ powercfg.exe /hibernate on
 copy /y /v "%SetupFolder%files\WT\settings.json" "%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" || REM Windows terminal settings
 
 ::Reg files
-forfiles /P %SetupFolder%regedit\ /C "cmd /c reg import @path"
+forfiles /P %SetupFolder%\src\reg\ /C "cmd /c reg import @path"
 
 ::Hide the taskbar
 powershell -command "&{$p='HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3';$v=(Get-ItemProperty -Path $p).Settings;$v[8]=3;&Set-ItemProperty -Path $p -Name Settings -Value $v;&Stop-Process -f -ProcessName explorer}"

@@ -9,47 +9,47 @@ call "%SetupFolder%\src\tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
 
 ::Communication
-call RunInstaller "winget" "Google.Chrome"
-call RunInstaller "winget" "Google.Drive"
-call RunInstaller "winget" "Discord.Discord" 
-call RunInstaller "batch" "%SetupFolder%\src\bat\custom_installers\powercord.bat"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Google.Chrome"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Google.Drive"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Discord.Discord" 
+call "%SetupFolder%src\bat\RunInstaller" "batch" "%SetupFolder%\src\bat\custom_installers\powercord.bat"
 
 ::User software
-call RunInstaller "winget" "ShareX.ShareX" 
-call RunInstaller "winget" "VideoLAN.VLCNightly" 
-call RunInstaller "winget" "WinSCP.WinSCP" 
-call RunInstaller "winget" "7zip.7zip" 
-call RunInstaller "winget" "WinDirStat.WinDirStat" 
-call RunInstaller "choco" cheatengine
-call RunInstaller "winget" "qBittorrent.qBittorrent"
-call RunInstaller "winget" "Lexikos.AutoHotkey"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "ShareX.ShareX" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "VideoLAN.VLCNightly" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "WinSCP.WinSCP" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "7zip.7zip" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "WinDirStat.WinDirStat" 
+call "%SetupFolder%src\bat\RunInstaller" "choco" cheatengine
+call "%SetupFolder%src\bat\RunInstaller" "winget" "qBittorrent.qBittorrent"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Lexikos.AutoHotkey"
 
 ::Dev
-call RunInstaller "winget" "Microsoft.WindowsTerminal" 
-call RunInstaller "winget" "SublimeHQ.SublimeText.4" 
-call RunInstaller "batch" "%SetupFolder%\src\bat\custom_installers\ubuntu.bat" 
-call RunInstaller "winget" "Microsoft.VisualStudio.2019.Community" 
-call RunInstaller "winget" "Google.AndroidStudio" 
-call RunInstaller "choco" "lua"
-call RunInstaller "winget" "Python.Python.3" 
-call RunInstaller "winget" "Oracle.JavaRuntimeEnvironment" 
-call RunInstaller "winget" "UnityTechnologies.UnityHub" 
-call RunInstaller "winget" "JetBrains.IntelliJIDEA.Community" 
-call RunInstaller "winget" "Oracle.VirtualBox" 
-call RunInstaller "winget" "TexasInstruments.TIConnectCE" 
-call RunInstaller "winget" "Microsoft.OpenJDK.17"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Microsoft.WindowsTerminal" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "SublimeHQ.SublimeText.4" 
+call "%SetupFolder%src\bat\RunInstaller" "batch" "%SetupFolder%\src\bat\custom_installers\ubuntu.bat" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Microsoft.VisualStudio.2019.Community" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Google.AndroidStudio" 
+call "%SetupFolder%src\bat\RunInstaller" "choco" "lua"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Python.Python.3" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Oracle.JavaRuntimeEnvironment" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "UnityTechnologies.UnityHub" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "JetBrains.IntelliJIDEA.Community" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Oracle.VirtualBox" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "TexasInstruments.TIConnectCE" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Microsoft.OpenJDK.17"
 
 ::Gaming
-call RunInstaller "winget" "EpicGames.EpicGamesLauncher"
-call RunInstaller "winget" "StefanSundin.Superf4" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "EpicGames.EpicGamesLauncher"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "StefanSundin.Superf4" 
 
 ::Office
-call RunInstaller "winget" "LibreOffice.LibreOffice" 
-call RunInstaller "winget" "KDE.Krita" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "LibreOffice.LibreOffice" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "KDE.Krita" 
 
 ::Hardware
-call RunInstaller "winget" "Nvidia.GeForceExperience" 
-call RunInstaller "winget" "REALiX.HWiNFO" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Nvidia.GeForceExperience" 
+call "%SetupFolder%src\bat\RunInstaller" "winget" "REALiX.HWiNFO" 
 
 choco feature disable -n allowGlobalConfirmation
 call "%SetupFolder%\src\tools\RefreshEnv.cmd"

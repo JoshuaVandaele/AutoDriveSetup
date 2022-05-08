@@ -1,6 +1,6 @@
 title Uninstalling Junk..
 
-call %SetupFolder%src\custom_uninstallers\onedrive.bat
+call %SetupFolder%src\custom_uninstallers\1drive.bat
 
 ::Preinstalled junk
 PowerShell -Command "Get-AppxPackage *Candy* | Remove-AppxPackage"

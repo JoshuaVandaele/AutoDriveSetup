@@ -1,12 +1,5 @@
 ::Elevate to administrator privileges if you do not have them
-NET SESSION || REM Admin only command, if the error level is 0, it means we have admin privileges
-if %errorLevel% == 0 (
-  goto setup 
-) else ( 
-  echo Getting administrator privileges..
-  powershell -command "Start-Process %0 -Verb runas" || REM Restart current batch file as admin
-)
-exit
+CALL "..\..\tools\getadmin.bat" %~dpf0
 
 :setup
 wsl --update 2>nul|| REM WSL->WSL2

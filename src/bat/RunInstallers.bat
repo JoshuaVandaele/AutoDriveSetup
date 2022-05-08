@@ -4,6 +4,12 @@ title Installing Apps..
 powershell /command "Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted"
 powershell /command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
 
+::Install winget
+::https://www.microsoft.com/store/productId/9nblggh4nns1
+powershell -File "%SetupFolder%src\bat\custom_installers\InstallWinget.ps1"
+call "%SetupFolder%\src\tools\RefreshEnv.cmd"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "App Installer"
+
 ::Install.. everything else
 call "%SetupFolder%\src\tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
@@ -77,4 +83,4 @@ powershell /command "Install-WindowsUpdate"
 powershell /command "Get-CimInstance -Namespace 'Root\cimv2\mdm\dmmap' -ClassName 'MDM_EnterpriseModernAppManagement_AppManagement01' | Invoke-CimMethod -MethodName UpdateScanMethod"
 
 ::All other updates
-winget upgrade --all
+winget upgrade --all --accept-source-agreements --accept-package-agreements

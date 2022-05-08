@@ -1,4 +1,4 @@
-start winget install --id "Canonical.Ubuntu"
+winget install %wingetargs% --id "Canonical.Ubuntu"
 call "%SetupFolder%tools\RefreshEnv.cmd"
 wsl --update || REM WSL->WSL2
 ubuntu install --root || REM Install ubuntu

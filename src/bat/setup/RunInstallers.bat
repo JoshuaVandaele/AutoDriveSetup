@@ -75,7 +75,7 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "WallpaperEngine" /d "D:\Program Files (x86)\Steam\steam.exe -applaunch 431960" || REM Install Wallpaper Engine at next restart
 
 ::Windows Updates
-powershell /command "Install-Module PSWindowsUpdate -Force"
+echo y|powershell /command "Install-Module PSWindowsUpdate -Force"
 powershell /command "Get-WindowsUpdate"
 powershell /command "Install-WindowsUpdate"
 

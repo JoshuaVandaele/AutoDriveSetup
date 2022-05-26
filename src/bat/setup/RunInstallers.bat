@@ -6,7 +6,7 @@ powershell /command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.N
 
 ::Install winget
 ::https://www.microsoft.com/store/productId/9nblggh4nns1
-powershell -File "%SetupFolder%src\installers\InstallWinget.ps1"
+call "%SetupFolder%src\bat\RunInstaller" "powershell" "%SetupFolder%\src\installers\InstallWinget.ps1" 
 call "%SetupFolder%\src\tools\RefreshEnv.cmd"
 call "%SetupFolder%src\bat\RunInstaller" "winget" "App Installer"
 
@@ -34,6 +34,7 @@ call "%SetupFolder%src\bat\RunInstaller" "winget" "Lexikos.AutoHotkey"
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Microsoft.WindowsTerminal" 
 call "%SetupFolder%src\bat\RunInstaller" "winget" "SublimeHQ.SublimeText.4" 
 call "%SetupFolder%src\bat\RunInstaller" "batch" "%SetupFolder%\src\installers\ubuntu.bat" 
+call "%SetupFolder%src\bat\RunInstaller" "powershell" "%SetupFolder%\src\installers\InstallWSA.ps1" 
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Microsoft.VisualStudio.2019.Community" 
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Google.AndroidStudio" 
 call "%SetupFolder%src\bat\RunInstaller" "choco" "lua"

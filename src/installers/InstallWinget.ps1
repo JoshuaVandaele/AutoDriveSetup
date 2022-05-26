@@ -40,13 +40,16 @@ function Get-AppxPackageDownload
     #Download Urls
     foreach ($url in $DownloadLinks)
     {
-      $FileRequest = Invoke-WebRequest -Uri $url -UseBasicParsing #-Method Head
-      $FileName = ($FileRequest.Headers["Content-Disposition"] | Select-String -Pattern  '(?<=filename=).+').matches.value
+      $FileName = "AppxPackage.appx"
       $FilePath = Join-Path $Path $FileName
       $FilePath = Resolve-NameConflict($FilePath)
-      [System.IO.File]::WriteAllBytes($FilePath, $FileRequest.content) | Out-Null
+
+      Write-Output "Downloading $url to $FilePath"
+      Start-BitsTransfer -Source $url -Destination $FilePath
+      Write-Output "Done"
       if ( ($ConfirmPreference -eq $false) -or $PSCmdlet.ShouldProcess($FileName, "Add Appx Package")) {
         Add-AppxPackage -Path $FilePath
+        Remove-Item -Path $FilePath
       }
     }
   }
@@ -55,12 +58,6 @@ function Get-AppxPackageDownload
 New-Item -Path $env:TEMP -Name "wingetinstall" -ItemType "directory"
 Set-Location $env:TEMP\wingetinstall
 Get-AppxPackageDownload 'https://www.microsoft.com/store/productId/9nblggh4nns1'
-foreach($file in Get-ChildItem $env:TEMP\wingetinstall)
-{
-  Add-AppxPackage -Path $env:TEMP\wingetinstall\$file
-}
-# Don't ask me why we need to run it two times, it doesn't work otherwise
-Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile "$env:TEMP\wingetinstall\DesktopAppInstaller.msix"
+Start-BitsTransfer -Source "https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -Destination "$env:TEMP\wingetinstall\DesktopAppInstaller.msix"
 Add-AppxPackage -Path "$env:TEMP\wingetinstall\DesktopAppInstaller.msix"
 Get-AppXPackage -allusers | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-

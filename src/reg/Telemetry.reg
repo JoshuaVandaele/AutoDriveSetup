@@ -1,0 +1,17 @@
+Windows Registry Editor Version 5.00
+
+; Disable telemetry
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
+"AllowTelemetry"=dword:0
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
+"AllowTelemetry"=dword:0
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
+"AllowTelemetry"=dword:0
+
+; Disable advertising ID
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo]
+"Enabled"=dword:0
+
+; Disable Microsoft Feedback Experience
+[HKEY_CURRENT_USER\Software\Microsoft\Siuf\Rules]
+"PeriodInNanoSeconds"=dword:0

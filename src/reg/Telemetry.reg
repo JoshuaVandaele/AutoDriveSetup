@@ -15,3 +15,13 @@ Windows Registry Editor Version 5.00
 ; Disable Microsoft Feedback Experience
 [HKEY_CURRENT_USER\Software\Microsoft\Siuf\Rules]
 "PeriodInNanoSeconds"=dword:0
+
+; Disable Windows Media Player telemetry
+[HKCU\SOFTWARE\Microsoft\MediaPlayer\Preferences]
+"UsageTracking"=dword:0
+
+; Disable telemetry for compatibility mode
+[HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\ClientTelemetry]
+"IsCensusDisabled"=dword:1
+"DontRetryOnError"=dword:1
+"TaskEnableRun"=dword:1

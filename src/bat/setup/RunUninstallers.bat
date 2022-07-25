@@ -1,6 +1,7 @@
 title Uninstalling Junk..
 
 call %SetupFolder%src\custom_uninstallers\1drive.bat
+call %SetupFolder%src\custom_uninstallers\edge.bat
 
 ::Preinstalled junk
 PowerShell -File "%SetupFolder%src\uninstallers\AppxCleaner.ps1"

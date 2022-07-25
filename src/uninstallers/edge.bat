@@ -1,0 +1,1 @@
+for /f "tokens=2 delims='C'" %%a in ('REG QUERY "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Microsoft Edge" /v UninstallString') do "C%%a

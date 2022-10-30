@@ -36,7 +36,7 @@ call "%SetupFolder%src\bat\RunInstaller" "batch" "%SetupFolder%\src\installers\u
 call "%SetupFolder%src\bat\RunInstaller" "powershell" "%SetupFolder%\src\installers\InstallWSA.ps1" 
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Microsoft.VisualStudioCode" 
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Google.AndroidStudio" 
-call "%SetupFolder%src\bat\RunInstaller" "choco" "lua"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "rjpcomputing.luaforwindows"
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Python.Python.3" 
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Oracle.JavaRuntimeEnvironment" 
 call "%SetupFolder%src\bat\RunInstaller" "winget" "UnityTechnologies.UnityHub" 

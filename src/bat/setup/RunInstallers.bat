@@ -15,10 +15,9 @@ call "%SetupFolder%\src\tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
 
 ::Communication
-call "%SetupFolder%src\bat\RunInstaller" "winget" "Google.Chrome"
+call "%SetupFolder%src\bat\RunInstaller" "winget" "Mozilla.Firefox.DeveloperEdition"
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Google.Drive"
 call "%SetupFolder%src\bat\RunInstaller" "winget" "Discord.Discord" 
-call "%SetupFolder%src\bat\RunInstaller" "batch" "%SetupFolder%\src\installers\powercord.bat"
 
 ::User software
 call "%SetupFolder%src\bat\RunInstaller" "winget" "ShareX.ShareX" 

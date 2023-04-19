@@ -9,4 +9,4 @@ if %packageManager%=="batch" (call %package%)
 if %packageManager%=="powershell" (powershell -File "%package%")
 
 cd /d %SetupFolder%
-call "%SetupFolder%\src\tools\RefreshEnv.cmd"
+call "%SetupFolder%src\tools\RefreshEnv.cmd"

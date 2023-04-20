@@ -41,7 +41,6 @@ call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "rjpcomputing.luaforwind
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Python.Python.3" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Oracle.JavaRuntimeEnvironment" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "UnityTechnologies.UnityHub" 
-call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "JetBrains.IntelliJIDEA.Community" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Oracle.VirtualBox" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "TexasInstruments.TIConnectCE" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Microsoft.OpenJDK.17"

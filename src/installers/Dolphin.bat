@@ -1,11 +1,20 @@
 REM Requirements:
 REM    - git
 REM    - Visual Studio Community 2022
+REM       - C++ Tools & Windows 11 SDK
 
 set INSTALL_LOCATION=%ProgramW6432%\Dolphin
 
 mkdir "%INSTALL_LOCATION%\UserDirectory"
 cd /d "%INSTALL_LOCATION%"
+
+:: INSTALL REQUIRED VS COMPONENTS
+"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" modify ^
+    --installPath="C:\Program Files\Microsoft Visual Studio\2022\Community" ^
+    --add Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core ^
+    --add Microsoft.VisualStudio.Component.Windows11SDK.22000 ^
+    --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 ^
+    -q
 
 :: CLONES DOLPHIN AND INSTALL ITS DEPENDENCIES
 git clone https://github.com/dolphin-emu/dolphin.git dolphin_source

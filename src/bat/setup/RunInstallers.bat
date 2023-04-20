@@ -14,11 +14,6 @@ call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "App Installer"
 call "%SetupFolder%src\tools\RefreshEnv.cmd"
 choco feature enable -n allowGlobalConfirmation
 
-::Communication
-call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Mozilla.Firefox.DeveloperEdition"
-call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Google.Drive"
-call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Discord.Discord" 
-
 ::User software
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "ShareX.ShareX" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "VideoLAN.VLCNightly" 
@@ -28,27 +23,32 @@ call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "WinDirStat.WinDirStat"
 call "%SetupFolder%src\bat\setup\RunInstaller" "choco" cheatengine
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "qBittorrent.qBittorrent"
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Lexikos.AutoHotkey"
+call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Mozilla.Firefox.DeveloperEdition"
+call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Google.Drive"
+call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Discord.Discord" 
 
 ::Dev
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Microsoft.WindowsTerminal" 
-call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "SublimeHQ.SublimeText.4" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "batch" "%SetupFolder%src\installers\ubuntu.bat" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "powershell" "%SetupFolder%src\installers\InstallWSA.ps1" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Microsoft.VisualStudio.2022.Community" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Microsoft.VisualStudioCode" 
+call "%SetupFolder%src\bat\setup\RunInstaller" "batch" "%SetupFolder%src\installers\HxD.bat" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Google.AndroidStudio" 
+call "%SetupFolder%src\bat\setup\RunInstaller" "batch" "%SetupFolder%src\installers\rustup.bat" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "rjpcomputing.luaforwindows"
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Python.Python.3" 
+call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "OpenJS.NodeJS.LTS"
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Oracle.JavaRuntimeEnvironment" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "UnityTechnologies.UnityHub" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Oracle.VirtualBox" 
-call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "TexasInstruments.TIConnectCE" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Microsoft.OpenJDK.17"
 
 ::Gaming
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "EpicGames.EpicGamesLauncher"
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "StefanSundin.Superf4" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "batch" "%SetupFolder%src\installers\Dolphin.bat" 
+call "%SetupFolder%src\bat\setup\RunInstaller" "batch" "%SetupFolder%src\installers\SteamShortcuts.bat" 
 
 ::Office
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "LibreOffice.LibreOffice" 
@@ -60,16 +60,6 @@ call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "REALiX.HWiNFO"
 
 choco feature disable -n allowGlobalConfirmation
 call "%SetupFolder%src\tools\RefreshEnv.cmd"
-
-::Update python's pip, because apparently it doesn't come with the latest pip version
-python.exe -m pip install --upgrade pip
-
-::Recreate steam shortcuts
-pip install urllib3 pillow vdf || REM Installing required libraries for steam shortcut
-echo folfy_blue|python "%SetupFolder%src\tools\steamshortcut.py" || REM Credits go to https://github.com/JeeZeh/steam-shortcut-generator
-del /F /Q "%SetupFolder%error_log.txt" || REM Delete error logs it generates everywhere for some reason
-del /F /Q "%SetupFolder%src\tools/error_log.txt"
-del /F /Q "%SetupFolder%src\bat/error_log.txt"
 
 ::Tasks to run at the next start of windows
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce" /v "ShareX" /d "%SetupFolder%files\ShareXUploader.sxcu" || REM Add ShareX's Custom Uploader by running it at next restart

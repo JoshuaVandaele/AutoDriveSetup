@@ -28,6 +28,7 @@ call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Google.Drive"
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Discord.Discord" 
 
 ::Dev
+call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Git.Git" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Microsoft.WindowsTerminal" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "batch" "%SetupFolder%src\installers\ubuntu.bat" 
 call "%SetupFolder%src\bat\setup\RunInstaller" "powershell" "%SetupFolder%src\installers\InstallWSA.ps1" 

@@ -49,6 +49,7 @@ call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "Microsoft.OpenJDK.17"
 ::Gaming
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "EpicGames.EpicGamesLauncher"
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "StefanSundin.Superf4" 
+call "%SetupFolder%src\bat\setup\RunInstaller" "batch" "%SetupFolder%src\installers\Dolphin.bat" 
 
 ::Office
 call "%SetupFolder%src\bat\setup\RunInstaller" "winget" "LibreOffice.LibreOffice" 

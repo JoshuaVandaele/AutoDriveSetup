@@ -5,7 +5,7 @@ REM       - C++ Tools & Windows 11 SDK
 
 set INSTALL_LOCATION=%ProgramW6432%\Dolphin
 
-mkdir "%INSTALL_LOCATION%\UserDirectory"
+mkdir "%INSTALL_LOCATION%"
 cd /d "%INSTALL_LOCATION%"
 
 :: INSTALL REQUIRED VS COMPONENTS
@@ -29,8 +29,8 @@ msbuild -v:m -m -p:Platform=x64,Configuration=Release Source\dolphin-emu.sln
 ROBOCOPY Binary/x64 "%INSTALL_LOCATION%" /MOVE /E
 
 :: Custom PATH for the UserDirectory (Instead of %AppData%\Dolphin Emulator)
-REM REG ADD "HKEY_CURRENT_USER\Software\Dolphin Emulator" /v "LocalUserConfig" /t REG_SZ /d 1 /f
-REM REG ADD "HKEY_CURRENT_USER\Software\Dolphin Emulator" /v "UserDirectory" /t REG_SZ /d "%INSTALL_LOCATION%\UserDirectory" /f
+REG ADD "HKEY_CURRENT_USER\Software\Dolphin Emulator" /v "LocalUserConfig" /t REG_SZ /d 1 /f
+REG ADD "HKEY_CURRENT_USER\Software\Dolphin Emulator" /v "UserDirectory" /t REG_SZ /d "%SetupFolder%\Dolphin" /f
 
 :: REMOVE FILES USED FOR BUILD
 cd ..
